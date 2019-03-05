@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using CinemaTickets.Domain;
+using System.Text;
 
-namespace CinemaTickets.Tests.Unit
+namespace CinemaTickets.Domain
 {
-    public class FakeMoviesRepository : IMoviesRepository
+    public class MoviesRepository : IMoviesRepository
     {
         private readonly List<Movie> _movies;
 
-        public FakeMoviesRepository()
+        public MoviesRepository()
         {
             _movies = new List<Movie>();
         }
@@ -23,6 +24,5 @@ namespace CinemaTickets.Tests.Unit
         {
             _movies.Add(movie);
         }
-
     }
 }

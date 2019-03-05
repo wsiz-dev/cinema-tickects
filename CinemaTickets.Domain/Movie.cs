@@ -6,14 +6,14 @@ namespace CinemaTickets.Domain
 {
     public class Movie
     {
-        private List<Screening> _screenings;
+        private List<Seance> _seance;
 
         public Movie(string name, int year)
         {
             Id = new Id<Movie>(Guid.NewGuid());
             Name = name;
             Year = year;
-            _screenings = new List<Screening>();
+            _seance = new List<Seance>();
         }
 
         public Id<Movie> Id { get; }
@@ -22,17 +22,17 @@ namespace CinemaTickets.Domain
 
         public int Year { get; }
 
-        public void LoadScreenings(IEnumerable<Screening> screenings)
+        public void LoadSeances(IEnumerable<Seance> seance)
         {
-            if (_screenings.Any())
+            if (_seance.Any())
             {
-                throw new InvalidOperationException("Screenings are already loaded.");
+                throw new InvalidOperationException("Seances are already loaded.");
             }
 
-            _screenings = screenings.ToList();
+            _seance = seance.ToList();
         }
 
-        public Screening GetScreeningByDate(DateTime date)
-            => _screenings.SingleOrDefault(x => x.Date == date);
+        public Seance GetSeanceByDateAdnRoomNumber(DateTime date, int roomNumber)
+            => _seance.SingleOrDefault(x => x.Date == date && x.RoomNumber == roomNumber);
     }
 }

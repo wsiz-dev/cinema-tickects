@@ -17,15 +17,15 @@ namespace CinemaTickets.Tests.Unit
 
         public Movie CreateMovie(string name, int year)
         {
-            var screenings = new List<Screening>()
+            var seances = new List<Seance>()
             {
-                new Screening(new DateTime(2019, 2, 28, 13, 0, 0)),
-                new Screening(new DateTime(2019, 3, 1, 14, 0, 0)),
-                new Screening(new DateTime(2019, 3, 1, 17, 0, 0))
+                new Seance(new DateTime(2019, 2, 28, 13, 0, 0), 20, 1),
+                new Seance(new DateTime(2019, 3, 1, 14, 0, 0), 2, 2),
+                new Seance(new DateTime(2019, 3, 1, 17, 0, 0), 20, 3)
             };
 
             var movie = new Movie(name, year);
-            movie.LoadScreenings(screenings);
+            movie.LoadSeances(seances);
 
             return movie;
         }

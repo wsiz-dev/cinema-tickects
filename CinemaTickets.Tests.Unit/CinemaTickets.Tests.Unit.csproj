@@ -7,14 +7,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CSharpFunctionalExtensions" Version="1.17.0" />
     <PackageReference Include="FluentAssertions" Version="5.6.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="NSubstitute" Version="4.0.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CinemaTicket.Infrastructure\CinemaTicket.Infrastructure.csproj" />
+    <ProjectReference Include="..\CinemaTickets.Core\CinemaTickets.Core.csproj" />
     <ProjectReference Include="..\CinemaTickets.Domain\CinemaTickets.Domain.csproj" />
+    <ProjectReference Include="..\CinemaTickets.UI\CinemaTickets.UI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.EntityFrameworkCore">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.1.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="NSubstitute">
+      <HintPath>C:\Users\Dawid\.nuget\packages\nsubstitute\4.0.0\lib\netstandard2.0\NSubstitute.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

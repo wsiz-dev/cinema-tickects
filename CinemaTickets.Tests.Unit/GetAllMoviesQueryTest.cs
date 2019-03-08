@@ -2,6 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using CinemaTickets.Core;
+using CinemaTickets.Core.Query;
+using CinemaTickets.Domain.Entities;
+using CinemaTickets.Domain.Repositories;
+using FluentAssertions;
+using NSubstitute;
 using Xunit;
 
 namespace CinemaTickets.Tests.Unit
@@ -9,20 +15,21 @@ namespace CinemaTickets.Tests.Unit
     public class GetAllMoviesQueryTest
     {
         [Fact]
-        public void GetMovies_WhenItsExist_SchouldSuccess()
+        public void GetMovies_WhenItsExist_ShouldSuccess()
         {
             using (var sut = new SystemUnderTest())
             {
-                var movie = sut.CreateMovie("Harry Potter", 2001);
-                sut.MoviesRepository.Add(movie);
-                var seanceDate = new DateTime(2019, 3, 1, 14, 0, 0);
+                var movie = sut.CreateMovie("Harry Potter", 2001, 150);
+                var movies = new List<Movie> {movie};
+                var unitOfWorkSubstitute = Substitute.For<IUnitOfWork>();
+
+                unitOfWorkSubstitute.MoviesRepository.GetAll().Returns(movies);
 
                 var query = new GetAllMoviesQuery();
-                var queryHandler = new GetAllMoviesQueryHandler(sut.MoviesRepository);
+                var queryHandler = new GetAllMoviesQueryHandler(unitOfWorkSubstitute);
+                var moviesQuery = queryHandler.Handle(query);
 
-                var movies = queryHandler.Handle();
-
-                movies.Count.Equals(1);
+                moviesQuery.Count.Should().Be(1);
             }
         }
 
@@ -31,17 +38,17 @@ namespace CinemaTickets.Tests.Unit
         {
             using (var sut = new SystemUnderTest())
             {
-                var movieName = "Harry Potter";
-                var movie = sut.CreateMovie(movieName, 2001);
-                sut.MoviesRepository.Add(movie);
-                var seanceDate = new DateTime(2019, 3, 1, 14, 0, 0);
+                var movie = sut.CreateMovie("Harry Potter", 2001,150);
+                var movies = new List<Movie> { movie };
+                var unitOfWorkSubstitute = Substitute.For<IUnitOfWork>();
+
+                unitOfWorkSubstitute.MoviesRepository.GetAll().Returns(movies);
 
                 var query = new GetAllMoviesQuery();
-                var queryHandler = new GetAllMoviesQueryHandler(sut.MoviesRepository);
+                var queryHandler = new GetAllMoviesQueryHandler(unitOfWorkSubstitute);
+                var moviesQuery = queryHandler.Handle(query);
 
-                var movies = queryHandler.Handle();
-
-                movies[0].Name.Equals(movieName);
+                moviesQuery[0].Name.Should().Be("Harry Potter");
             }
         }
     }

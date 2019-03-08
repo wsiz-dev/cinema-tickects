@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaTickets.Domain", "Cin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaTickets.Tests.Unit", "CinemaTickets.Tests.Unit\CinemaTickets.Tests.Unit.csproj", "{28537E2B-74BE-4DBD-9D4E-184ABD1A8202}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTickets.UI", "CinemaTickets.UI\CinemaTickets.UI.csproj", "{76FD0739-ED1A-4804-9A63-F55BE64C3007}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTickets.Core", "CinemaTickets.Core\CinemaTickets.Core.csproj", "{286FF962-1542-4808-A40B-0A5A9A6B951A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaTicket.Infrastructure", "CinemaTicket.Infrastructure\CinemaTicket.Infrastructure.csproj", "{61405F21-7FF7-4CD9-9D87-8177EF07F629}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +27,18 @@ Global
 		{28537E2B-74BE-4DBD-9D4E-184ABD1A8202}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28537E2B-74BE-4DBD-9D4E-184ABD1A8202}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28537E2B-74BE-4DBD-9D4E-184ABD1A8202}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76FD0739-ED1A-4804-9A63-F55BE64C3007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76FD0739-ED1A-4804-9A63-F55BE64C3007}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76FD0739-ED1A-4804-9A63-F55BE64C3007}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76FD0739-ED1A-4804-9A63-F55BE64C3007}.Release|Any CPU.Build.0 = Release|Any CPU
+		{286FF962-1542-4808-A40B-0A5A9A6B951A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{286FF962-1542-4808-A40B-0A5A9A6B951A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{286FF962-1542-4808-A40B-0A5A9A6B951A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{286FF962-1542-4808-A40B-0A5A9A6B951A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61405F21-7FF7-4CD9-9D87-8177EF07F629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61405F21-7FF7-4CD9-9D87-8177EF07F629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61405F21-7FF7-4CD9-9D87-8177EF07F629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61405F21-7FF7-4CD9-9D87-8177EF07F629}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -16,6 +16,9 @@
     <Reference Include="Microsoft.EntityFrameworkCore">
       <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.1.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
     </Reference>
+    <Reference Include="MoreLinq">
+      <HintPath>C:\Users\Dawid\.nuget\packages\morelinq\3.1.0\lib\netstandard2.0\MoreLinq.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

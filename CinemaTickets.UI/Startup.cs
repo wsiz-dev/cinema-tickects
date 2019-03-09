@@ -8,6 +8,7 @@ using CinemaTickets.Domain;
 using CinemaTickets.Domain.Command;
 using CinemaTickets.Domain.Query;
 using CinemaTickets.Domain.Repositories;
+using CinemaTickets.Domain.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -46,17 +47,22 @@ namespace CinemaTickets.UI
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-
-
             services
-                .AddTransient<ICommandHandler<BuyTicketCommand>, BuyTicketCommandHandler>();
+                .AddTransient<ICommandHandler<BuyTicketCommand>, BuyTicketCommandHandler>()
+                .AddTransient<ICommandHandler<AddMovieCommand>, AddMovieCommandHandler>()
+                .AddTransient<ICommandHandler<RegisterSeanceCommand>, RegisterSeanceCommandHandler>();
 
             services
                 .AddTransient<IQueryHandler<GetAllMoviesQuery, List<MovieDto>>, GetAllMoviesQueryHandler>()
                 .AddTransient<IQueryHandler<GetSeatsInUseQuery, int>, GetSeatsInUseQueryHandler>();
 
             services
-                .AddTransient<IUnitOfWork, UnitOfWork>();
+                .AddTransient<IUnitOfWork, UnitOfWork>()
+                .AddTransient<IRoomService, RoomService>();
+
+            services
+                .AddTransient<IMoviesRepository, MoviesRepository>()
+                .AddTransient<IRoomRepository, RoomRepository>();
 
             services
                 .AddSingleton<Messages>();

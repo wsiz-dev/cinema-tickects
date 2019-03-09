@@ -85,12 +85,10 @@ namespace CinemaTickets.Tests.Unit
                 unitOfWorkSubstitute.RoomRepository.GetById(sut.Rooms[0].Id)
                     .Returns(sut.Rooms[0]);
 
-                var seance = new Seance(new DateTime(2019, 4, 1, 8, 0, 0), 20 , sut.Rooms[0].Id, movie.Id);
+                var seance = new Seance(new DateTime(2019, 4, 1, 10, 0, 0), 20 , sut.Rooms[0].Id, movie.Id);
                 sut.Rooms[0].Seances.Add(seance);
-                seance = new Seance(new DateTime(2019, 4, 1, 23, 30, 0), 20, sut.Rooms[0].Id, movie.Id);
+                seance = new Seance(new DateTime(2019, 4, 1, 12, 30, 0), 20, sut.Rooms[0].Id, movie.Id);
                 sut.Rooms[0].Seances.Add(seance);
-
-
 
                 var command = new RegisterSeanceCommand(movie.Id, seanceDate, sut.Rooms[0].Id, quantity);
                 var handler = new RegisterSeanceCommandHandler(unitOfWorkSubstitute);

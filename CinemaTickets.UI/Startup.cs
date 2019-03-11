@@ -9,6 +9,9 @@ using CinemaTickets.Domain.Command;
 using CinemaTickets.Domain.Query;
 using CinemaTickets.Domain.Repositories;
 using CinemaTickets.Domain.Service;
+using CinemaTickets.Infrastructure;
+using CinemaTickets.Infrastructure.Repositories;
+using CinemaTickets.Infrastructure.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -41,28 +44,31 @@ namespace CinemaTickets.UI
             services
                 .AddDbContext<CinemaTicketDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("CinemaTicketDatabase"),
-                        b => b.MigrationsAssembly("CinemaTicket.Infrastructure")
+                        b => b.MigrationsAssembly("CinemaTickets.Infrastructure")
                     ));
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services
-                .AddTransient<ICommandHandler<BuyTicketCommand>, BuyTicketCommandHandler>()
-                .AddTransient<ICommandHandler<AddMovieCommand>, AddMovieCommandHandler>()
-                .AddTransient<ICommandHandler<RegisterSeanceCommand>, RegisterSeanceCommandHandler>();
+                .AddScoped<ICommandHandler<BuyTicketCommand>, BuyTicketCommandHandler>()
+                .AddScoped<ICommandHandler<AddMovieCommand>, AddMovieCommandHandler>()
+                .AddScoped<ICommandHandler<RegisterSeanceCommand>, RegisterSeanceCommandHandler>();
 
             services
-                .AddTransient<IQueryHandler<GetAllMoviesQuery, List<MovieDto>>, GetAllMoviesQueryHandler>()
-                .AddTransient<IQueryHandler<GetSeatsInUseQuery, int>, GetSeatsInUseQueryHandler>();
+                .AddScoped<IQueryHandler<GetAllMoviesQuery, List<MovieDto>>, GetAllMoviesQueryHandler>()
+                .AddScoped<IQueryHandler<GetSeatsInUseQuery, int>, GetSeatsInUseQueryHandler>()
+                .AddScoped<IQueryHandler<GetMovieQuery, MovieDetailsDTO>, GetMovieQueryHandler>()
+                .AddScoped<IQueryHandler<GetSeanceQuery, MovieSeanceDetailsDTO>, GetSeanceQueryHanlder>();
+
 
             services
-                .AddTransient<IUnitOfWork, UnitOfWork>()
-                .AddTransient<IRoomService, RoomService>();
+                .AddScoped<IUnitOfWork, UnitOfWork>()
+                .AddScoped<IRoomService, RoomService>();
 
             services
-                .AddTransient<IMoviesRepository, MoviesRepository>()
-                .AddTransient<IRoomRepository, RoomRepository>();
+                .AddScoped<IMoviesRepository, MoviesRepository>()
+                .AddScoped<IRoomRepository, RoomRepository>();
 
             services
                 .AddSingleton<Messages>();

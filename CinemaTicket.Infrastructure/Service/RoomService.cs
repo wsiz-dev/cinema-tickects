@@ -5,7 +5,7 @@ using CinemaTickets.Domain.Repositories;
 using CinemaTickets.Domain.Service;
 using MoreLinq;
 
-namespace CinemaTicket.Infrastructure
+namespace CinemaTickets.Infrastructure.Service
 {
     public class RoomService : IRoomService
     {

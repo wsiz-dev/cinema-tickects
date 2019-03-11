@@ -16,10 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CinemaTicket.Infrastructure\CinemaTicket.Infrastructure.csproj" />
     <ProjectReference Include="..\CinemaTickets.Core\CinemaTickets.Core.csproj" />
     <ProjectReference Include="..\CinemaTickets.Domain\CinemaTickets.Domain.csproj" />
-    <ProjectReference Include="..\CinemaTickets.UI\CinemaTickets.UI.csproj" />
   </ItemGroup>
 
   <ItemGroup>

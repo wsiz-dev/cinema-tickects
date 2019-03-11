@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using CinemaTickets.Domain.ValueObjects;
 
 namespace CinemaTickets.Domain.Entities
 {
     public class Room
     {
-        private Room()
+        public Room()
         {
-            
         }
-        public Room(Id<Room> id, int roomNumber, int seats)
+
+        public Room(int roomNumber, int seats)
         {
-            Id = id;
+            Id = new Id<Room>(Guid.NewGuid());
             RoomNumber = roomNumber;
             Seats = seats;
             Seances = new List<Seance>();

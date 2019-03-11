@@ -1,19 +1,16 @@
-﻿using System;
-using System.Linq;
-using CinemaTickets.Domain.Command;
+﻿using CinemaTickets.Domain.Command;
 using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Repositories;
 using CinemaTickets.Domain.Service;
 using CSharpFunctionalExtensions;
-using MoreLinq;
 
 namespace CinemaTickets.Core.Command
 {
     public sealed class RegisterSeanceCommandHandler
         : ICommandHandler<RegisterSeanceCommand>
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IRoomService _roomService;
+        private readonly IUnitOfWork _unitOfWork;
 
         public RegisterSeanceCommandHandler(IUnitOfWork unitOfWork, IRoomService roomService)
         {
@@ -31,12 +28,13 @@ namespace CinemaTickets.Core.Command
             if (movie == null)
                 return Result.Fail("This movie does not exist");
 
-            var seance = new Seance(command.SeanceDate, command.Quantity, command.RoomId, command.MovieId);
+            var seance = new Seance(command.SeanceDate, command.RoomId, command.MovieId);
             var room = _unitOfWork.RoomRepository.GetById(command.RoomId);
 
             if (room.Seances.Count != 0)
             {
-                var timeSpanBefore = _roomService.GetTimeSpanBeforeSeanceDate(room, command.SeanceDate, movie.SeanceTime);
+                var timeSpanBefore =
+                    _roomService.GetTimeSpanBeforeSeanceDate(room, command.SeanceDate, movie.SeanceTime);
                 var timeSpanAfter = _roomService.GetTimeSpanAfterSeanceDate(room, command.SeanceDate, movie.SeanceTime);
 
                 if (timeSpanBefore < movie.SeanceTime || timeSpanAfter < movie.SeanceTime)

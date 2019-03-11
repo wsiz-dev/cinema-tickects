@@ -7,7 +7,6 @@ namespace CinemaTickets.Domain.Entities
 {
     public class Movie
     {
-
         public Movie()
         {
         }
@@ -29,11 +28,16 @@ namespace CinemaTickets.Domain.Entities
 
         public int SeanceTime { get; }
 
-        public List<Seance> Seances  { get;}
+        public List<Seance> Seances { get; private set; }
 
         public Seance GetSeanceByDateAdnRoomId(DateTime date, Id<Room> roomId)
         {
             return Seances.SingleOrDefault(x => x.Date == date && x.RoomId == roomId);
+        }
+
+        public void SetCurrentSeance(List<Seance> seances)
+        {
+            Seances = seances;
         }
     }
 }

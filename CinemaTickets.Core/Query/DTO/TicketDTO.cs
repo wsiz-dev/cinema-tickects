@@ -1,20 +1,17 @@
 ﻿using System;
+using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.ValueObjects;
 
-namespace CinemaTickets.Domain.Entities
+namespace CinemaTickets.Core.Query.DTO
 {
-    public class Ticket
+    public class TicketDetailsDTO
     {
-        public Ticket()
-        {
-        }
-
-        public Ticket(string email, int peopleCount)
+        public TicketDetailsDTO(string email, int peopleCount, Id<Ticket> id, DateTime purchesDate)
         {
             Email = email;
             PeopleCount = peopleCount;
-            PurchesDate = DateTime.UtcNow;
-            Id = new Id<Ticket>(Guid.NewGuid());
+            Id = id;
+            PurchesDate = purchesDate;
         }
 
         public string Email { get; }

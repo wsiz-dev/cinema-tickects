@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CinemaTickets.Core.Query;
 using CinemaTickets.Domain;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +12,12 @@ namespace CinemaTickets.UI.Controllers
         {
             _messages = messages;
         }
+
         public IActionResult Index()
         {
-            return View();
+            var movies = _messages.Dispatch(new GetAllMoviesQuery());
+
+            return View(movies);
         }
     }
 }

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Repositories;
 using CinemaTickets.Domain.ValueObjects;
+using CinemaTickets.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace CinemaTicket.Infrastructure.Repositories
@@ -19,14 +18,20 @@ namespace CinemaTicket.Infrastructure.Repositories
         }
 
         public Room GetById(Id<Room> id)
-            => _context.Rooms
+        {
+            return _context.Rooms
                 .Include(x => x.Seances)
                 .FirstOrDefault();
+        }
 
         public IEnumerable<Room> GetAll()
-            => _context.Rooms.ToList();
+        {
+            return _context.Rooms.ToList();
+        }
 
         public void Build(Room room)
-            => _context.Add(room);
+        {
+            _context.Add(room);
+        }
     }
 }

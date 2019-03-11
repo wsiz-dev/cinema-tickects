@@ -6,7 +6,7 @@ using CinemaTickets.Domain.Repositories;
 using CinemaTickets.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
-namespace CinemaTicket.Infrastructure.Repositories
+namespace CinemaTickets.Infrastructure.Repositories
 {
     public class MoviesRepository : IMoviesRepository
     {
@@ -18,28 +18,49 @@ namespace CinemaTicket.Infrastructure.Repositories
         }
 
         public Movie GetById(Id<Movie> id)
-            => _context.Movies.SingleOrDefault(x => x.Id == id);
+        {
+            return _context.Movies
+                .Include(c => c.Seances)
+                .SingleOrDefault(x => x.Id == id);
+        }
 
         public IEnumerable<Movie> GetAll()
-            => _context.Movies.ToList();
+        {
+            return _context.Movies.ToList();
+        }
 
         public bool IsMovieExist(string name, int year)
-            => _context.Movies.Any(
+        {
+            return _context.Movies.Any(
                 x => x.Name == name && x.Year == year);
+        }
 
         public bool IsSeanceExist(DateTime seanceDate, Id<Room> roomId)
-            => _context.Seances.Any(
+        {
+            return _context.Seances.Any(
                 x => x.Date == seanceDate && x.RoomId == roomId);
+        }
 
         public List<Seance> GetSeancesByMovieId(Id<Movie> movieId)
-            => _context.Seances.Where(x => x.MovieId == movieId)
+        {
+            return _context.Seances.Where(x => x.MovieId == movieId)
                 .ToList();
+        }
 
         public int GetMovieTimeById(Id<Movie> movieId)
-            => _context.Movies.Where(x => x.Id == movieId)
+        {
+            return _context.Movies.Where(x => x.Id == movieId)
                 .Select(x => x.SeanceTime)
                 .FirstOrDefault();
+        }
 
+        public Movie GetSeanceDetails(Id<Movie> movieId)
+        {
+            return _context.Movies.Where(x => x.Id == movieId)
+                .Include(t => t.Seances)
+                .ThenInclude(se => se.Tickets)
+                .FirstOrDefault();
+        }
 
         public void Add(Movie movie)
         {

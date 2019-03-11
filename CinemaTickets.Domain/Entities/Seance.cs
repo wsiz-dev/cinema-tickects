@@ -7,45 +7,45 @@ namespace CinemaTickets.Domain.Entities
 {
     public class Seance
     {
-        private readonly List<Ticket> _tickets;
-
         public Seance()
         {
         }
 
-        public Seance(DateTime date, int seats, Id<Room> roomId, Id<Movie> movieId)
+        public Seance(DateTime date, Id<Room> roomId, Id<Movie> movieId)
         {
+            Id = new Id<Seance>(Guid.NewGuid());
             Date = date;
-            Seats = seats;
             RoomId = roomId;
             MovieId = movieId;
-            _tickets = new List<Ticket>();
+            Tickets = new List<Ticket>();
         }
 
 
         public DateTime Date { get; }
 
-        public int Seats { get; }
+        public Id<Seance> Id { get; }
 
         public Id<Room> RoomId { get; }
-        
+
         public Id<Movie> MovieId { get; }
+
+        public List<Ticket> Tickets { get; }
 
         public List<Ticket> GetTicketByEmail(string email)
         {
-            return _tickets.Where(x => x.Email == email)
+            return Tickets.Where(x => x.Email == email)
                 .OrderBy(x => x.PurchesDate)
                 .ToList();
         }
 
         public List<Ticket> GetAllSeanceTicket()
         {
-            return _tickets.ToList();
+            return Tickets.ToList();
         }
 
         public void Add(Ticket ticket)
         {
-            _tickets.Add(ticket);
+            Tickets.Add(ticket);
         }
     }
 }

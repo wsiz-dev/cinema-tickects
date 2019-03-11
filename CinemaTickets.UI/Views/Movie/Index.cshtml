@@ -1,0 +1,43 @@
+﻿@model IEnumerable<CinemaTickets.Core.Query.DTO.MovieDto>
+
+@{
+    ViewData["Title"] = "Movies";
+}
+
+<h2>Movies</h2>
+
+@if (@Model.Any())
+{
+    <div>
+        <table class="table">
+            <thead class="tab-pane">
+            <tr>
+                <th>Nazwa</th>
+            </tr>
+            </thead>
+            <tbody class="tab-content">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Name.
+                    </td>
+                    <td>
+                        <div class="d-inline-flex">
+                            <a class="text-warning btn btn-link" asp-action="Index"
+                               asp-controller="Seance" asp-route-id="@item.Id.Value"><i class="fas fa-pen-square">Zobacz seanse</i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+
+}
+else
+{
+    <p>Brak filmów</p>
+}
+
+

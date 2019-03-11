@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CinemaTickets.Domain.Command;
+﻿using CinemaTickets.Domain.Command;
 
 namespace CinemaTickets.Core.Command
 {
-    public class AddMovieCommand : ICommand
+    public sealed class AddMovieCommand : ICommand
     {
         public AddMovieCommand(string name, int year, int seanceTime)
         {

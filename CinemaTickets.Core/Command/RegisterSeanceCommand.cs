@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using CinemaTickets.Domain.Command;
 using CinemaTickets.Domain.Entities;
-using CinemaTickets.Domain.Query;
 using CinemaTickets.Domain.ValueObjects;
 
 namespace CinemaTickets.Core.Command

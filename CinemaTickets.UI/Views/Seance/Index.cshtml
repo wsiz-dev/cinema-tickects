@@ -1,0 +1,44 @@
+﻿@model CinemaTickets.Core.Query.DTO.MovieDetailsDTO
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Seances</h2>
+@if (Model == null)
+{
+    <p>Taki film nie istnieje</p>
+}
+
+else if (@Model.Seances.Any())
+{
+    <div>
+        <table class="table">
+            <thead class="tab-pane">
+                <tr>
+                    <th>Data seansu</th>
+                </tr>
+            </thead>
+            <tbody class="tab-content">
+                @foreach (var item in Model.Seances)
+                {
+                    <tr>
+                        <td>
+                            @item.Date
+                        </td>
+                        <td>
+                            <div class="d-inline-flex">
+                                <a class="text-warning btn btn-link" asp-action="BuyTicket"
+                                   asp-controller="Seance" asp-route-movieId="@Model.MovieId" asp-route-seanceId="@item.Id"><i class="fas fa-pen-square">Kup bilet</i></a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
+else
+{
+    <p>Brak seansów</p>
+}

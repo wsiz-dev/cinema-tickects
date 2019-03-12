@@ -1,7 +1,6 @@
 ﻿using System;
 using CinemaTickets.Domain.Command;
 using CinemaTickets.Domain.Query;
-using CSharpFunctionalExtensions;
 
 namespace CinemaTickets.Domain
 {

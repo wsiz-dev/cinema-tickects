@@ -1,6 +1,5 @@
 ﻿using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Repositories;
-using CSharpFunctionalExtensions;
 
 namespace CinemaTickets.Domain.Command
 {

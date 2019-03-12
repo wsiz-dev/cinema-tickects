@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using CinemaTickets.Domain;
-using CinemaTickets.Domain.Command;
-using CinemaTickets.Domain.Query;
-using CinemaTickets.Domain.Query.DTO;
+﻿using System;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using CinemaTickets.Domain.Repositories;
 using CinemaTickets.Domain.Service;
 using CinemaTickets.Infrastructure;
@@ -27,8 +25,10 @@ namespace CinemaTickets.UI
 
         public IConfiguration Configuration { get; }
 
+        public IContainer Container { get; private set; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -46,32 +46,20 @@ namespace CinemaTickets.UI
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services
-                .AddScoped<ICommandHandler<BuyTicketCommand>, BuyTicketCommandHandler>()
-                .AddScoped<ICommandHandler<AddMovieCommand>, AddMovieCommandHandler>()
-                .AddScoped<ICommandHandler<RegisterSeanceCommand>, RegisterSeanceCommandHandler>();
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.Populate(services);
 
-            services
-                .AddScoped<IQueryHandler<GetAllMoviesQuery, List<MovieDto>>, GetAllMoviesQueryHandler>()
-                .AddScoped<IQueryHandler<GetSeatsInUseQuery, int>, GetSeatsInUseQueryHandler>()
-                .AddScoped<IQueryHandler<GetMovieQuery, MovieDetailsDTO>, GetMovieQueryHandler>()
-                .AddScoped<IQueryHandler<GetSeanceQuery, MovieSeanceDetailsDTO>, GetSeanceQueryHanlder>();
+            containerBuilder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
+            containerBuilder.RegisterType<RoomService>().As<IRoomService>().InstancePerLifetimeScope();
+            containerBuilder.RegisterType<MoviesRepository>().As<IMoviesRepository>().InstancePerLifetimeScope();
+            containerBuilder.RegisterType<RoomRepository>().As<IRoomRepository>().InstancePerLifetimeScope();
+            containerBuilder.ConfigureMediator();
 
-
-            services
-                .AddScoped<IUnitOfWork, UnitOfWork>()
-                .AddScoped<IRoomService, RoomService>();
-
-            services
-                .AddScoped<IMoviesRepository, MoviesRepository>()
-                .AddScoped<IRoomRepository, RoomRepository>();
-
-            services
-                .AddSingleton<Messages>();
+            Container = containerBuilder.Build();
+            return new AutofacServiceProvider(Container);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -80,7 +68,6 @@ namespace CinemaTickets.UI
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -94,6 +81,8 @@ namespace CinemaTickets.UI
                     "default",
                     "{controller=Home}/{action=Index}/{id?}");
             });
+
+            appLifetime.ApplicationStopped.Register(Container.Dispose);
         }
     }
 }

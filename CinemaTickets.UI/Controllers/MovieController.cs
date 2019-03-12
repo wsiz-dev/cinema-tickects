@@ -6,16 +6,16 @@ namespace CinemaTickets.UI.Controllers
 {
     public class MovieController : Controller
     {
-        private readonly Messages _messages;
+        private readonly IMediator _mediator;
 
-        public MovieController(Messages messages)
+        public MovieController(IMediator mediator)
         {
-            _messages = messages;
+            _mediator = mediator;
         }
 
         public IActionResult Index()
         {
-            var movies = _messages.Dispatch(new GetAllMoviesQuery());
+            var movies = _mediator.Query(new GetAllMoviesQuery());
 
             return View(movies);
         }

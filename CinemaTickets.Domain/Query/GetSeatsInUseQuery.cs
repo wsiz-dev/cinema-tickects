@@ -1,18 +1,16 @@
 ﻿using System;
-using CinemaTickets.Domain.Command;
 using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.ValueObjects;
 
-namespace CinemaTickets.Core.Command
+namespace CinemaTickets.Domain.Query
 {
-    public sealed class RegisterSeanceCommand : ICommand
+    public sealed class GetSeatsInUseQuery : IQuery<int>
     {
-        public RegisterSeanceCommand(Id<Movie> movieId, DateTime seanceDate, Id<Room> roomId, int quantity)
+        public GetSeatsInUseQuery(Id<Movie> movieId, DateTime seanceDate, Id<Room> roomId) 
         {
             MovieId = movieId;
             SeanceDate = seanceDate;
             RoomId = roomId;
-            Quantity = quantity;
         }
 
         public Id<Movie> MovieId { get; }
@@ -20,7 +18,5 @@ namespace CinemaTickets.Core.Command
         public DateTime SeanceDate { get; }
 
         public Id<Room> RoomId { get; }
-
-        public int Quantity { get; }
     }
 }

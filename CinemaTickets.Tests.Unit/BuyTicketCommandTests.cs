@@ -1,7 +1,7 @@
 using System;
-using CinemaTickets.Core.Command;
-using CinemaTickets.Core.Query;
+using CinemaTickets.Domain.Command;
 using CinemaTickets.Domain.Entities;
+using CinemaTickets.Domain.Query;
 using CinemaTickets.Domain.Repositories;
 using FluentAssertions;
 using NSubstitute;

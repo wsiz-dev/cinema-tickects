@@ -1,6 +1,4 @@
-﻿using CinemaTickets.Domain.Command;
-
-namespace CinemaTickets.Core.Command
+﻿namespace CinemaTickets.Domain.Command
 {
     public sealed class AddMovieCommand : ICommand
     {

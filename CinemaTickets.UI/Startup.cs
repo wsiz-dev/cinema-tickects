@@ -1,12 +1,8 @@
 ﻿using System.Collections.Generic;
-using CinemaTicket.Infrastructure;
-using CinemaTicket.Infrastructure.Repositories;
-using CinemaTickets.Core.Command;
-using CinemaTickets.Core.Query;
-using CinemaTickets.Core.Query.DTO;
 using CinemaTickets.Domain;
 using CinemaTickets.Domain.Command;
 using CinemaTickets.Domain.Query;
+using CinemaTickets.Domain.Query.DTO;
 using CinemaTickets.Domain.Repositories;
 using CinemaTickets.Domain.Service;
 using CinemaTickets.Infrastructure;
@@ -48,7 +44,7 @@ namespace CinemaTickets.UI
                     ));
 
             services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services
                 .AddScoped<ICommandHandler<BuyTicketCommand>, BuyTicketCommandHandler>()

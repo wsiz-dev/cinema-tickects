@@ -1,5 +1,5 @@
 ﻿using System;
-using CinemaTickets.Core.Command;
+using CinemaTickets.Domain.Command;
 using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Repositories;
 using CinemaTickets.Domain.Service;

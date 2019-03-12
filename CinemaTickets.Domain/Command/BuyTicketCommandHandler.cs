@@ -1,10 +1,9 @@
 ﻿using System.Linq;
-using CinemaTickets.Domain.Command;
 using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Repositories;
 using CSharpFunctionalExtensions;
 
-namespace CinemaTickets.Core.Command
+namespace CinemaTickets.Domain.Command
 {
     public sealed class BuyTicketCommandHandler
         : ICommandHandler<BuyTicketCommand>

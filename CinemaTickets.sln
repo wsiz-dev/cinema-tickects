@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaTickets.Tests.Unit", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaTickets.UI", "CinemaTickets.UI\CinemaTickets.UI.csproj", "{76FD0739-ED1A-4804-9A63-F55BE64C3007}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaTickets.Core", "CinemaTickets.Core\CinemaTickets.Core.csproj", "{286FF962-1542-4808-A40B-0A5A9A6B951A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaTickets.Infrastructure", "CinemaTicket.Infrastructure\CinemaTickets.Infrastructure.csproj", "{61405F21-7FF7-4CD9-9D87-8177EF07F629}"
 EndProject
 Global
@@ -31,10 +29,6 @@ Global
 		{76FD0739-ED1A-4804-9A63-F55BE64C3007}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76FD0739-ED1A-4804-9A63-F55BE64C3007}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76FD0739-ED1A-4804-9A63-F55BE64C3007}.Release|Any CPU.Build.0 = Release|Any CPU
-		{286FF962-1542-4808-A40B-0A5A9A6B951A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{286FF962-1542-4808-A40B-0A5A9A6B951A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{286FF962-1542-4808-A40B-0A5A9A6B951A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{286FF962-1542-4808-A40B-0A5A9A6B951A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{61405F21-7FF7-4CD9-9D87-8177EF07F629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{61405F21-7FF7-4CD9-9D87-8177EF07F629}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61405F21-7FF7-4CD9-9D87-8177EF07F629}.Release|Any CPU.ActiveCfg = Release|Any CPU

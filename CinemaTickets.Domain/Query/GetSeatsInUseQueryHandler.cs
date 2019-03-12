@@ -1,8 +1,7 @@
 ﻿using System.Linq;
-using CinemaTickets.Domain.Query;
 using CinemaTickets.Domain.Repositories;
 
-namespace CinemaTickets.Core.Query
+namespace CinemaTickets.Domain.Query
 {
     public sealed class GetSeatsInUseQueryHandler : IQueryHandler<GetSeatsInUseQuery, int>
     {

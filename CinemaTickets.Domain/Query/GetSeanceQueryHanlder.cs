@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CinemaTickets.Core.Query.DTO;
-using CinemaTickets.Domain.Entities;
-using CinemaTickets.Domain.Query;
+﻿using System.Linq;
+using CinemaTickets.Domain.Query.DTO;
 using CinemaTickets.Domain.Repositories;
 
-namespace CinemaTickets.Core.Query
+namespace CinemaTickets.Domain.Query
 {
     public class GetSeanceQueryHanlder : IQueryHandler<GetSeanceQuery, MovieSeanceDetailsDTO>
     {

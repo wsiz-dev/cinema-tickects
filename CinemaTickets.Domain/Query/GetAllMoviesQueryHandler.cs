@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CinemaTickets.Core.Query.DTO;
-using CinemaTickets.Domain.Query;
+using CinemaTickets.Domain.Query.DTO;
 using CinemaTickets.Domain.Repositories;
 
-namespace CinemaTickets.Core.Query
+namespace CinemaTickets.Domain.Query
 {
     public sealed class GetAllMoviesQueryHandler : IQueryHandler<GetAllMoviesQuery, List<MovieDto>>
     {

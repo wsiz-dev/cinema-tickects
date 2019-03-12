@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using CinemaTickets.Core.Query;
 using CinemaTickets.Domain.Entities;
+using CinemaTickets.Domain.Query;
 using CinemaTickets.Domain.Repositories;
 using FluentAssertions;
 using NSubstitute;

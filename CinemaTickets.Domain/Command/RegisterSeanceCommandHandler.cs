@@ -1,10 +1,9 @@
-﻿using CinemaTickets.Domain.Command;
-using CinemaTickets.Domain.Entities;
+﻿using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Repositories;
 using CinemaTickets.Domain.Service;
 using CSharpFunctionalExtensions;
 
-namespace CinemaTickets.Core.Command
+namespace CinemaTickets.Domain.Command
 {
     public sealed class RegisterSeanceCommandHandler
         : ICommandHandler<RegisterSeanceCommand>

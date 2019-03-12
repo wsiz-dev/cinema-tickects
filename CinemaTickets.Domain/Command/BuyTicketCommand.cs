@@ -1,9 +1,8 @@
 ﻿using System;
-using CinemaTickets.Domain.Command;
 using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.ValueObjects;
 
-namespace CinemaTickets.Core.Command
+namespace CinemaTickets.Domain.Command
 {
     public sealed class BuyTicketCommand : ICommand
     {

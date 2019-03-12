@@ -3,10 +3,9 @@ using System.Linq;
 using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Repositories;
 using CinemaTickets.Domain.ValueObjects;
-using CinemaTickets.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace CinemaTicket.Infrastructure.Repositories
+namespace CinemaTickets.Infrastructure.Repositories
 {
     public class RoomRepository : IRoomRepository
     {

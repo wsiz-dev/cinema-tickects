@@ -1,6 +1,6 @@
 ﻿using System;
-using CinemaTickets.Core.Query;
 using CinemaTickets.Domain;
+using CinemaTickets.Domain.Query;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaTickets.UI.Controllers

@@ -1,8 +1,6 @@
 ﻿using CinemaTickets.Domain.Repositories;
-using CinemaTickets.Infrastructure;
-using CinemaTickets.Infrastructure.Repositories;
 
-namespace CinemaTicket.Infrastructure.Repositories
+namespace CinemaTickets.Infrastructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {

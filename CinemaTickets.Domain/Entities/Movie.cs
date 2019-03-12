@@ -7,7 +7,7 @@ namespace CinemaTickets.Domain.Entities
 {
     public class Movie
     {
-        public Movie()
+        protected Movie()
         {
         }
 
@@ -20,13 +20,13 @@ namespace CinemaTickets.Domain.Entities
             Seances = new List<Seance>();
         }
 
-        public Id<Movie> Id { get; }
+        public Id<Movie> Id { get; protected set; }
 
-        public string Name { get; }
+        public string Name { get; protected set; }
 
-        public int Year { get; }
+        public int Year { get; protected set; }
 
-        public int SeanceTime { get; }
+        public int SeanceTime { get; protected set; }
 
         public List<Seance> Seances { get; private set; }
 

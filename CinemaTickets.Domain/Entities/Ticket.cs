@@ -5,7 +5,7 @@ namespace CinemaTickets.Domain.Entities
 {
     public class Ticket
     {
-        public Ticket()
+        protected Ticket()
         {
         }
 
@@ -17,12 +17,12 @@ namespace CinemaTickets.Domain.Entities
             Id = new Id<Ticket>(Guid.NewGuid());
         }
 
-        public string Email { get; }
+        public string Email { get; protected set; }
 
-        public Id<Ticket> Id { get; }
+        public Id<Ticket> Id { get; protected set; }
 
-        public int PeopleCount { get; }
+        public int PeopleCount { get; protected set; }
 
-        public DateTime PurchesDate { get; }
+        public DateTime PurchesDate { get; protected set; }
     }
 }

@@ -7,7 +7,7 @@ namespace CinemaTickets.Domain.Entities
 {
     public class Seance
     {
-        public Seance()
+        protected Seance()
         {
         }
 
@@ -21,15 +21,15 @@ namespace CinemaTickets.Domain.Entities
         }
 
 
-        public DateTime Date { get; }
+        public DateTime Date { get; protected set; }
 
-        public Id<Seance> Id { get; }
+        public Id<Seance> Id { get; protected set; }
 
-        public Id<Room> RoomId { get; }
+        public Id<Room> RoomId { get; protected set; }
 
-        public Id<Movie> MovieId { get; }
+        public Id<Movie> MovieId { get; protected set; }
 
-        public List<Ticket> Tickets { get; }
+        public List<Ticket> Tickets { get; protected set; }
 
         public List<Ticket> GetTicketByEmail(string email)
         {

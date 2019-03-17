@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace CinemaTickets.UI.Controllers
 {
     [Route("[controller]/[action]")]
-    public class SeanceController : Controller
+    public class SeancesController : Controller
     {
         private readonly IMediator _mediator;
 
-        public SeanceController(IMediator mediator)
+        public SeancesController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -20,13 +20,6 @@ namespace CinemaTickets.UI.Controllers
         {
             var movie = _mediator.Query(new GetMovieQuery(id));
             return View(movie);
-        }
-
-        [HttpGet("{movieId?}/{seanceId?}")]
-        public IActionResult BuyTicket(Guid movieId, Guid seanceId)
-        {
-            var seanceDetails = _mediator.Query(new GetSeanceQuery(movieId, seanceId));
-            return View();
         }
     }
 }

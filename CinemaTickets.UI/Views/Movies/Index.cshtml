@@ -4,7 +4,7 @@
     ViewData["Title"] = "Movies";
 }
 
-<h2>Movies</h2>
+<h2>Filmy</h2>
 
 @if (@Model.Any())
 {
@@ -13,6 +13,7 @@
             <thead class="tab-pane">
             <tr>
                 <th>Nazwa</th>
+                <th></th>
             </tr>
             </thead>
             <tbody class="tab-content">
@@ -20,12 +21,12 @@
             {
                 <tr>
                     <td>
-                        @item.Name.
+                        @item.Name
                     </td>
                     <td>
-                        <div class="d-inline-flex">
+                        <div class="d-inline-flex float-right">
                             <a class="text-warning btn btn-link" asp-action="Index"
-                               asp-controller="Seance" asp-route-id="@item.Id.Value"><i class="fas fa-pen-square">Zobacz seanse</i></a>
+                               asp-controller="Seances" asp-route-id="@item.Id.Value"><i class="fas fa-pen-square">Zobacz seanse</i></a>
                         </div>
                     </td>
                 </tr>
@@ -39,5 +40,3 @@ else
 {
     <p>Brak filmów</p>
 }
-
-

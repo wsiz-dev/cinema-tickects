@@ -3,7 +3,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Seances</h2>
+<h2>Seanse dla filmu @Model.Name</h2>
 @if (Model == null)
 {
     <p>Taki film nie istnieje</p>
@@ -15,7 +15,8 @@ else if (@Model.Seances.Any())
         <table class="table">
             <thead class="tab-pane">
                 <tr>
-                    <th>Data seansu</th>
+                    <th>Data</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody class="tab-content">
@@ -26,9 +27,9 @@ else if (@Model.Seances.Any())
                             @item.Date
                         </td>
                         <td>
-                            <div class="d-inline-flex">
-                                <a class="text-warning btn btn-link" asp-action="BuyTicket"
-                                   asp-controller="Seance" asp-route-movieId="@Model.MovieId" asp-route-seanceId="@item.Id"><i class="fas fa-pen-square">Kup bilet</i></a>
+                            <div class="d-inline-flex float-right">
+                                <a class="text-warning btn btn-link" asp-action="Index"
+                                   asp-controller="Tickets" asp-route-movieId="@Model.MovieId" asp-route-seanceId="@item.Id"><i class="fas fa-pen-square">Kup bilet</i></a>
                             </div>
                         </td>
                     </tr>

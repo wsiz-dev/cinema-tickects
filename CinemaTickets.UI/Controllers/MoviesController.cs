@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaTickets.UI.Controllers
 {
-    public class MovieController : Controller
+    public class MoviesController : Controller
     {
         private readonly IMediator _mediator;
 
-        public MovieController(IMediator mediator)
+        public MoviesController(IMediator mediator)
         {
             _mediator = mediator;
         }

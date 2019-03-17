@@ -6,6 +6,7 @@ using CinemaTickets.Domain.Service;
 using CinemaTickets.Infrastructure;
 using CinemaTickets.Infrastructure.Repositories;
 using CinemaTickets.Infrastructure.Service;
+using CinemaTickets.UI.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -43,7 +44,10 @@ namespace CinemaTickets.UI
                         b => b.MigrationsAssembly("CinemaTickets.Infrastructure")
                     ));
 
-            services.AddMvc()
+            services.AddMvc(setup =>
+                {
+                    setup.Filters.Add<FakeAuthorizationFilter>();
+                })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             var containerBuilder = new ContainerBuilder();

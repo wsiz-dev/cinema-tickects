@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CinemaTickets.Domain.Query.DTO.MovieDto>
 
 @{
-    ViewData["Title"] = "Movies";
+    ViewData["Title"] = "Filmy";
 }
 
 <h2>Filmy</h2>
@@ -13,7 +13,12 @@
             <thead class="tab-pane">
             <tr>
                 <th>Nazwa</th>
-                <th></th>
+                <th>
+                    @if (User.IsAdmin())
+                    {
+                        <a class="btn btn-outline-success float-right" asp-action="Add">Dodaj nowy</a>
+                    }
+                </th>
             </tr>
             </thead>
             <tbody class="tab-content">
@@ -34,7 +39,6 @@
             </tbody>
         </table>
     </div>
-
 }
 else
 {

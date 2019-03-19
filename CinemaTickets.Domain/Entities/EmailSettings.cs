@@ -6,22 +6,22 @@ namespace CinemaTickets.Domain.Entities
 {
     public class EmailSettings
     {
-        public string PrimaryDomain { get; }
+        public string PrimaryDomain { get; set; }
 
-        public int PrimaryPort { get; }
+        public int PrimaryPort { get; set; }
 
-        public string SecondayDomain { get; }
+        public string SecondayDomain { get; set; }
 
-        public int SecondaryPort { get; }
+        public int SecondaryPort { get; set; }
 
-        public string UsernameEmail { get; }
+        public string UsernameEmail { get; set; }
 
-        public string UsernamePassword { get; }
+        public string UsernamePassword { get; set; }
 
-        public string FromEmail { get; }
+        public string FromEmail { get; set; }
 
-        public string ToEmail { get; }
+        public string ToEmail { get; set; }
 
-        public string CcEmail { get;  }
+        public string CcEmail { get; set; }
     }
 }

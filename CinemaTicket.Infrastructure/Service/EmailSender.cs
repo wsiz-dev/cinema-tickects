@@ -14,51 +14,53 @@ namespace CinemaTickets.Infrastructure.Service
 {
     public class EmailSender : IEmailSender
     {
+        private readonly EmailSettings _emailSettings;
         private readonly IHostingEnvironment _hostingEnvironment;
-        public EmailSender(IOptions<EmailSettings> emailSettings, IHostingEnvironment hostingEnvironment)
+
+        public EmailSender(EmailSettings emailSettings, IHostingEnvironment hostingEnvironment)
         {
-            _emailSettings = emailSettings.Value;
+            _emailSettings = emailSettings;
             _hostingEnvironment = hostingEnvironment;
         }
-
-        public EmailSettings _emailSettings { get; }
 
         public Task SendEmailAsync(string email, string subject, string message)
         {
 
-            Execute(email, subject, message).Wait();
+            Execute(email, subject, message);
             return Task.FromResult(0);
         }
 
-        public async Task Execute(string email, string subject, string message)
+        private void Execute(string email, string subject, string message)
         {
-                string toEmail = string.IsNullOrEmpty(email)
-                                 ? _emailSettings.ToEmail
-                                 : email;
+            var toEmail = string.IsNullOrEmpty(email)
+                             ? _emailSettings.ToEmail
+                             : email;
 
-                MailMessage mail = new MailMessage()
-                {
-                    From = new MailAddress(_emailSettings.FromEmail, "TelMax")
-                };
-                mail.To.Add(new MailAddress(toEmail));
+            MailMessage mail = new MailMessage()
+            {
+                From = new MailAddress(_emailSettings.UsernameEmail, "CinemaTickets")
+            };
+            mail.To.Add(new MailAddress(toEmail));
+            mail.Subject = subject;
+            mail.Body = message;
+            mail.IsBodyHtml = true;
 
-                using (SmtpClient smtp = new SmtpClient(_emailSettings.PrimaryDomain, _emailSettings.PrimaryPort))
-                {
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential(_emailSettings.UsernameEmail, _emailSettings.UsernamePassword);
-                    smtp.EnableSsl = true;
-                    await smtp.SendMailAsync(mail);
-                }
+            using (var smtp = new SmtpClient(_emailSettings.PrimaryDomain, _emailSettings.PrimaryPort))
+            {
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential(_emailSettings.UsernameEmail, _emailSettings.UsernamePassword);
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
+            }
         }
-
         public string GetTemplateFilePathAsync(string templateName)
         {
             var webRootPath = _hostingEnvironment.WebRootPath;
             var pathToFile = webRootPath
                             + Path.DirectorySeparatorChar.ToString()
-                            + "Template"
+                            + "template"
                             + Path.DirectorySeparatorChar.ToString()
-                            + "EmailTemplate"
+                            + "email"
                             + Path.DirectorySeparatorChar.ToString()
                             + templateName;
 

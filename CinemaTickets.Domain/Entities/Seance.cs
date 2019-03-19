@@ -40,7 +40,8 @@ namespace CinemaTickets.Domain.Entities
 
         public List<Ticket> GetAllSeanceTicket()
         {
-            return Tickets.ToList();
+            return Tickets == null ? new List<Ticket>() 
+                : Tickets.ToList();
         }
 
         public void Add(Ticket ticket)

@@ -3,6 +3,7 @@ using CinemaTickets.Domain.Command;
 using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Query;
 using CinemaTickets.Domain.Repositories;
+using CinemaTickets.Domain.Service;
 using FluentAssertions;
 using NSubstitute;
 using Xunit;
@@ -11,6 +12,7 @@ namespace CinemaTickets.Tests.Unit
 {
     public class BuyTicketCommandTests
     {
+
         [Fact]
         public void BuyTicket_CountingSeatsInUse_ShouldSuccess()
         {
@@ -22,6 +24,7 @@ namespace CinemaTickets.Tests.Unit
             {
                 var movie = sut.CreateMovie("Harry Potter", 2001, 150);
                 var unitOfWorkSubstitute = Substitute.For<IUnitOfWork>();
+                var emailService = Substitute.For<IEmailService>();
 
                 unitOfWorkSubstitute.MoviesRepository.GetById(movie.Id)
                     .Returns(movie);
@@ -34,7 +37,7 @@ namespace CinemaTickets.Tests.Unit
                 seance.Add(new Ticket("dawid@wsiz-dev.pl", 17));
 
                 var command = new BuyTicketCommand(movie.Id, seanceDate, email, quantity, sut.Rooms[0].Id);
-                var handler = new BuyTicketCommandHandler(unitOfWorkSubstitute);
+                var handler = new BuyTicketCommandHandler(unitOfWorkSubstitute, emailService);
 
                 handler.Handle(command);
 
@@ -58,6 +61,7 @@ namespace CinemaTickets.Tests.Unit
             {
                 var movie = sut.CreateMovie("Harry Potter", 2001, 150);
                 var unitOfWorkSubstitute = Substitute.For<IUnitOfWork>();
+                var emailService = Substitute.For<IEmailService>();
 
                 unitOfWorkSubstitute.MoviesRepository.GetById(movie.Id)
                     .Returns(movie);
@@ -65,7 +69,7 @@ namespace CinemaTickets.Tests.Unit
                     .Returns(sut.Rooms[2]);
 
                 var command = new BuyTicketCommand(movie.Id, seanceDate, email, quantity, sut.Rooms[2].Id);
-                var handler = new BuyTicketCommandHandler(unitOfWorkSubstitute);
+                var handler = new BuyTicketCommandHandler(unitOfWorkSubstitute, emailService);
                 handler.Handle(command);
 
                 movie = unitOfWorkSubstitute.MoviesRepository.GetById(movie.Id);
@@ -87,6 +91,7 @@ namespace CinemaTickets.Tests.Unit
             {
                 var movie = sut.CreateMovie("Harry Potter", 2001, 150);
                 var unitOfWorkSubstitute = Substitute.For<IUnitOfWork>();
+                var emailService = Substitute.For<IEmailService>();
 
                 unitOfWorkSubstitute.MoviesRepository.GetById(movie.Id)
                     .Returns(movie);
@@ -94,7 +99,7 @@ namespace CinemaTickets.Tests.Unit
                     .Returns(sut.Rooms[1]);
 
                 var command = new BuyTicketCommand(movie.Id, seanceDate, email, quantity, sut.Rooms[1].Id);
-                var handler = new BuyTicketCommandHandler(unitOfWorkSubstitute);
+                var handler = new BuyTicketCommandHandler(unitOfWorkSubstitute, emailService);
                 var result = handler.Handle(command);
 
                 result.IsFailure.Should().BeTrue();

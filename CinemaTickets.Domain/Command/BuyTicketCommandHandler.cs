@@ -1,6 +1,9 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Repositories;
+using CinemaTickets.Domain.Service;
+using CinemaTickets.Domain.Service.DTO;
 
 namespace CinemaTickets.Domain.Command
 {
@@ -9,9 +12,12 @@ namespace CinemaTickets.Domain.Command
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public BuyTicketCommandHandler(IUnitOfWork unitOfWork)
+        private readonly IEmailService _emailService;
+
+        public BuyTicketCommandHandler(IUnitOfWork unitOfWork, IEmailService emailService)
         {
             _unitOfWork = unitOfWork;
+            _emailService = emailService;
         }
 
         public Result Handle(BuyTicketCommand command)
@@ -29,6 +35,11 @@ namespace CinemaTickets.Domain.Command
 
             seance.Add(ticket);
             _unitOfWork.Commit();
+
+            var purchaseNotification = new PurchaseNotificationDto(command.Email, ticket.Id, command.Quantity,
+                seance.Date, movie.Name, room.RoomNumber);
+
+            _emailService.SendPurchaseNotification(purchaseNotification);
 
             return Result.Ok();
         }

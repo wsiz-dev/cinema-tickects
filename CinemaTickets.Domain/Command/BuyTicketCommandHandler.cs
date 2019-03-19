@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Repositories;
 using CinemaTickets.Domain.Service;
 using CinemaTickets.Domain.Service.DTO;
+using Hangfire;
 
 namespace CinemaTickets.Domain.Command
 {
@@ -39,8 +39,9 @@ namespace CinemaTickets.Domain.Command
             var purchaseNotification = new PurchaseNotificationDto(command.Email, ticket.Id, command.Quantity,
                 seance.Date, movie.Name, room.RoomNumber);
 
-            _emailService.SendPurchaseNotification(purchaseNotification);
-
+            BackgroundJob.Enqueue(
+                () => _emailService.SendPurchaseNotification(purchaseNotification));
+            
             return Result.Ok();
         }
     }

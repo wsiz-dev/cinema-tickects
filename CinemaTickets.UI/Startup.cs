@@ -8,6 +8,7 @@ using CinemaTickets.Infrastructure;
 using CinemaTickets.Infrastructure.Repositories;
 using CinemaTickets.Infrastructure.Service;
 using CinemaTickets.UI.Middleware;
+using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -44,6 +45,8 @@ namespace CinemaTickets.UI
                     options.UseSqlServer(Configuration.GetConnectionString("CinemaTicketDatabase"),
                         b => b.MigrationsAssembly("CinemaTickets.Infrastructure")
                     ));
+
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("CinemaTicketDatabase")));
 
             services.AddMvc(setup =>
                 {
@@ -84,6 +87,8 @@ namespace CinemaTickets.UI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseHangfireServer();
+            app.UseHangfireDashboard();
 
             app.UseMvc(routes =>
             {

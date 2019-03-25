@@ -81,5 +81,17 @@ namespace CinemaTickets.UI.Controllers
             ViewData["Error"] = result.Message;
             return View(model);
         }
+
+        [HttpPost]
+        public IActionResult Delete(Guid id)
+        {
+            var result = _mediator.Command(new DeleteMovieCommand(id));
+            if (result.IsSuccess == false)
+            {
+                ViewData["Error"] = result.Message;
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

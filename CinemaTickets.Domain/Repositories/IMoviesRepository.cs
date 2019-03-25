@@ -24,5 +24,7 @@ namespace CinemaTickets.Domain.Repositories
         Movie GetSeanceDetails(Id<Movie> movieId);
 
         List<Seance> GetSeancesByMovieId(Id<Movie> movieId);
+
+        void Remove(Movie movie);
     }
 }

@@ -47,6 +47,11 @@ namespace CinemaTickets.Infrastructure.Repositories
                 .ToList();
         }
 
+        public void Remove(Movie movie)
+        {
+            _context.Remove(movie);
+        }
+
         public int GetMovieTimeById(Id<Movie> movieId)
         {
             return _context.Movies.Where(x => x.Id == movieId)

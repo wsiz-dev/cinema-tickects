@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CinemaTickets.Domain.Query.DTO.MovieDto>
+﻿@using System.Collections.Immutable
+@model IEnumerable<CinemaTickets.Domain.Query.DTO.MovieDto>
 
 @{
     ViewData["Title"] = "Filmy";
@@ -13,12 +14,14 @@
             <thead class="tab-pane">
             <tr>
                 <th>Nazwa</th>
-                <th>
-                    @if (User.IsAdmin())
-                    {
+                <th></th>
+                @if (User.IsAdmin())
+                {
+                    <th></th>
+                    <th>
                         <a class="btn btn-outline-success float-right" asp-action="Add">Dodaj nowy</a>
-                    }
-                </th>
+                    </th>
+                }
             </tr>
             </thead>
             <tbody class="tab-content">
@@ -29,15 +32,22 @@
                         @item.Name
                     </td>
                     <td>
-                        @if (User.IsAdmin())
-                        {
-                            <a class="btn btn-outline-secondary float-right" asp-action="Edit" asp-route-id="@item.Id.Value">Edytuj</a>
-                        }
                         <div class="d-inline-flex float-right">
                             <a class="text-warning btn btn-link" asp-action="Index"
                                asp-controller="Seances" asp-route-id="@item.Id.Value"><i class="fas fa-pen-square">Zobacz seanse</i></a>
                         </div>
                     </td>
+                    @if (User.IsAdmin())
+                    {
+                        <td>
+                            <a class="btn btn-link text-secondary float-right" asp-action="Edit" asp-route-id="@item.Id.Value">Edytuj</a>
+                        </td>
+                        <td>
+                            <form method="post" asp-action="Delete" asp-route-id="@item.Id.Value">
+                                <button type="submit" class="btn btn-link text-danger float-right">Usuń</button>
+                            </form>
+                        </td>
+                    }
                 </tr>
             }
             </tbody>

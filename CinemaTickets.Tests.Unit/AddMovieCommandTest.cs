@@ -1,4 +1,5 @@
 ﻿using CinemaTickets.Domain.Command;
+using CinemaTickets.Domain.Command.Movies;
 using CinemaTickets.Domain.Repositories;
 using FluentAssertions;
 using NSubstitute;

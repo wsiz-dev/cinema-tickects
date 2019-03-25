@@ -54,6 +54,11 @@ namespace CinemaTickets.Infrastructure.Repositories
                 .FirstOrDefault();
         }
 
+        public void Update(Movie movie)
+        {
+            _context.Movies.Update(movie);
+        }
+
         public Movie GetSeanceDetails(Id<Movie> movieId)
         {
             return _context.Movies.Where(x => x.Id == movieId)

@@ -1,4 +1,4 @@
-﻿namespace CinemaTickets.Domain.Command
+﻿namespace CinemaTickets.Domain.Command.Movies
 {
     public sealed class AddMovieCommand : ICommand
     {

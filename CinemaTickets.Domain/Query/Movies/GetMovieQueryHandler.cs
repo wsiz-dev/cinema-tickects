@@ -3,7 +3,7 @@ using System.Linq;
 using CinemaTickets.Domain.Query.DTO;
 using CinemaTickets.Domain.Repositories;
 
-namespace CinemaTickets.Domain.Query
+namespace CinemaTickets.Domain.Query.Movies
 {
     public class GetMovieQueryHandler : IQueryHandler<GetMovieQuery, MovieDetailsDTO>
     {
@@ -28,7 +28,7 @@ namespace CinemaTickets.Domain.Query
                             item.Date, item.Id, item.RoomId))
                                 .ToList();
 
-            return  new MovieDetailsDTO(movie.Name, movie.Id, seances);
+            return  new MovieDetailsDTO(movie.Id.Value, movie.Name, movie.Year, movie.SeanceTime, seances);
         }
     }
 }

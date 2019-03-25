@@ -5,9 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Hangfire.Core">
-      <HintPath>C:\Users\Dawid\.nuget\packages\hangfire.core\1.6.23\lib\netstandard1.3\Hangfire.Core.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Hangfire.Core" Version="1.6.23" />
   </ItemGroup>
 
 </Project>

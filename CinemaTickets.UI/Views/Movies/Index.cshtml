@@ -29,6 +29,10 @@
                         @item.Name
                     </td>
                     <td>
+                        @if (User.IsAdmin())
+                        {
+                            <a class="btn btn-outline-secondary float-right" asp-action="Edit" asp-route-id="@item.Id.Value">Edytuj</a>
+                        }
                         <div class="d-inline-flex float-right">
                             <a class="text-warning btn btn-link" asp-action="Index"
                                asp-controller="Seances" asp-route-id="@item.Id.Value"><i class="fas fa-pen-square">Zobacz seanse</i></a>

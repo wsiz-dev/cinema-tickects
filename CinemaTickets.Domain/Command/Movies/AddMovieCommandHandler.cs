@@ -1,7 +1,7 @@
 ﻿using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Repositories;
 
-namespace CinemaTickets.Domain.Command
+namespace CinemaTickets.Domain.Command.Movies
 {
     public sealed class AddMovieCommandHandler : ICommandHandler<AddMovieCommand>
     {

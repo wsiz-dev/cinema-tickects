@@ -19,6 +19,8 @@ namespace CinemaTickets.Domain.Repositories
 
         void Add(Movie movie);
 
+        void Update(Movie movie);
+
         Movie GetSeanceDetails(Id<Movie> movieId);
 
         List<Seance> GetSeancesByMovieId(Id<Movie> movieId);

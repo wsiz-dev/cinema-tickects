@@ -1,27 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace CinemaTickets.Domain.Query.DTO
+namespace CinemaTickets.Domain.Command.Movies
 {
-    public class MovieDetailsDTO
+    public sealed class EditMovieCommand : ICommand
     {
-        public MovieDetailsDTO(Guid id, string name, int year, int seanceTime, List<SeanceDTO> seances)
+        public EditMovieCommand(Guid id, string name, int year, int seanceTime)
         {
             Id = id;
             Name = name;
-            Seances = seances;
             Year = year;
             SeanceTime = seanceTime;
         }
 
         public Guid Id { get; }
-
         public string Name { get; }
-
         public int Year { get; }
-
         public int SeanceTime { get; }
-
-        public List<SeanceDTO> Seances { get; }
     }
 }

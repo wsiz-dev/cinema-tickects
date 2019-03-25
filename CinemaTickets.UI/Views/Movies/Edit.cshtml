@@ -1,0 +1,34 @@
+﻿@model EditMovieModel
+@{
+    ViewData["Title"] = "Edit";
+    string error = ViewData["Error"]?.ToString() ?? "";
+}
+
+<h2>Edytuj film</h2>
+
+@if (error != "")
+{
+    <div class="text-danger">
+        @error
+    </div>
+}
+
+<form method="post">
+    @Html.HiddenFor(x => x.Id)
+    <div class="form-group">
+        <label asp-for="Name">Nazwa</label>
+        <input asp-for="Name" type="text" class="form-control">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Year">Rok</label>
+        <input asp-for="Year" type="number" class="form-control">
+        <span asp-validation-for="Year"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SeanceTime">Czas trwania</label>
+        <input asp-for="SeanceTime" type="number" class="form-control">
+        <span asp-validation-for="SeanceTime" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-outline-primary float-right">Zapisz</button>
+</form>

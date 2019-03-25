@@ -3,7 +3,7 @@ using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Query.DTO;
 using CinemaTickets.Domain.ValueObjects;
 
-namespace CinemaTickets.Domain.Query
+namespace CinemaTickets.Domain.Query.Movies
 {
     public class GetMovieQuery : IQuery<MovieDetailsDTO>
     {

@@ -35,6 +35,21 @@ namespace CinemaTickets.Domain.Entities
             return Seances.SingleOrDefault(x => x.Date == date && x.RoomId == roomId);
         }
 
+        public void SetName(string name)
+        {
+            Name = name;
+        }
+
+        public void SetYear(int year)
+        {
+            Year = year;
+        }
+
+        public void SetSeanceTime(int seanceTime)
+        {
+            SeanceTime = seanceTime;
+        }
+
         public void SetCurrentSeance(List<Seance> seances)
         {
             Seances = seances;

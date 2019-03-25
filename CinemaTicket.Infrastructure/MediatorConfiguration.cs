@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using CinemaTickets.Domain;
 using CinemaTickets.Domain.Command;
+using CinemaTickets.Domain.Command.Movies;
 using CinemaTickets.Domain.Query;
 
 namespace CinemaTickets.Infrastructure

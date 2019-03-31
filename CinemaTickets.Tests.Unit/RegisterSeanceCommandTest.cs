@@ -1,5 +1,5 @@
 ﻿using System;
-using CinemaTickets.Domain.Command;
+using CinemaTickets.Domain.Command.Seances;
 using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Repositories;
 using CinemaTickets.Domain.Service;
@@ -16,7 +16,6 @@ namespace CinemaTickets.Tests.Unit
         {
             using (var sut = new SystemUnderTest())
             {
-                const int quantity = 50;
                 var seanceDate = new DateTime(2019, 2, 28, 13, 0, 0);
                 var movie = sut.CreateMovie("Harry Potter", 2001, 150);
                 var unitOfWorkSubstitute = Substitute.For<IUnitOfWork>();
@@ -35,7 +34,12 @@ namespace CinemaTickets.Tests.Unit
                     .Returns(movie.SeanceTime);
 
 
-                var command = new RegisterSeanceCommand(movie.Id, seanceDate, sut.Rooms[1].Id, quantity);
+                var command = new RegisterSeanceCommand
+                {
+                    MovieId = movie.Id,
+                    SeanceDate = seanceDate,
+                    RoomId = sut.Rooms[0].Id
+                };
                 var handler = new RegisterSeanceCommandHandler(unitOfWorkSubstitute, roomServiceSubstitute);
                 var result = handler.Handle(command);
 
@@ -48,7 +52,6 @@ namespace CinemaTickets.Tests.Unit
         {
             using (var sut = new SystemUnderTest())
             {
-                const int quantity = 50;
                 var seanceDate = new DateTime(2019, 4, 1, 11, 0, 0);
                 var movie = sut.CreateMovie("Harry Potter", 2001, 150);
                 var unitOfWorkSubstitute = Substitute.For<IUnitOfWork>();
@@ -67,7 +70,12 @@ namespace CinemaTickets.Tests.Unit
                 roomServiceSubstitute.GetTimeSpanBeforeSeanceDate(sut.Rooms[0], seanceDate, movie.SeanceTime)
                     .Returns(movie.SeanceTime);
 
-                var command = new RegisterSeanceCommand(movie.Id, seanceDate, sut.Rooms[0].Id, quantity);
+                var command = new RegisterSeanceCommand
+                {
+                    MovieId = movie.Id,
+                    SeanceDate = seanceDate,
+                    RoomId = sut.Rooms[0].Id
+                };
                 var handler = new RegisterSeanceCommandHandler(unitOfWorkSubstitute, roomServiceSubstitute);
 
                 handler.Handle(command);
@@ -84,7 +92,6 @@ namespace CinemaTickets.Tests.Unit
         {
             using (var sut = new SystemUnderTest())
             {
-                const int quantity = 50;
                 var seanceDate = new DateTime(2019, 4, 1, 11, 0, 0);
                 var movie = sut.CreateMovie("Harry Potter", 2001, 150);
                 var unitOfWorkSubstitute = Substitute.For<IUnitOfWork>();
@@ -108,7 +115,12 @@ namespace CinemaTickets.Tests.Unit
                 seance = new Seance(new DateTime(2019, 4, 1, 12, 30, 0), sut.Rooms[0].Id, movie.Id);
                 sut.Rooms[0].Seances.Add(seance);
 
-                var command = new RegisterSeanceCommand(movie.Id, seanceDate, sut.Rooms[0].Id, quantity);
+                var command = new RegisterSeanceCommand
+                {
+                    MovieId = movie.Id,
+                    SeanceDate = seanceDate,
+                    RoomId = sut.Rooms[0].Id
+                };
                 var handler = new RegisterSeanceCommandHandler(unitOfWorkSubstitute, roomServiceSubstitute);
 
                 handler.Handle(command);

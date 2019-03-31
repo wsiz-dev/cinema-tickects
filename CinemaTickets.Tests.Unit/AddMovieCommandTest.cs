@@ -1,5 +1,4 @@
-﻿using CinemaTickets.Domain.Command;
-using CinemaTickets.Domain.Command.Movies;
+﻿using CinemaTickets.Domain.Command.Movies;
 using CinemaTickets.Domain.Repositories;
 using FluentAssertions;
 using NSubstitute;
@@ -14,7 +13,13 @@ namespace CinemaTickets.Tests.Unit
         {
             using (var sut = new SystemUnderTest())
             {
-                var command = new AddMovieCommand("Harry Potter", 2001, 150);
+                var command = new AddMovieCommand
+                {
+                    Name = "Harry Potter",
+                    Year = 2001,
+                    SeanceTime = 150
+
+                };
                 var unitOfWorkSubstitute = Substitute.For<IUnitOfWork>();
 
                 unitOfWorkSubstitute.MoviesRepository
@@ -33,7 +38,13 @@ namespace CinemaTickets.Tests.Unit
         {
             using (var sut = new SystemUnderTest())
             {
-                var command = new AddMovieCommand("Harry Potter", 2001, 150);
+                var command = new AddMovieCommand
+                {
+                    Name = "Harry Potter",
+                    Year = 2001,
+                    SeanceTime = 150
+
+                };
                 var unitOfWorkSubstitute = Substitute.For<IUnitOfWork>();
 
                 var handler = new AddMovieCommandHandler(unitOfWorkSubstitute);

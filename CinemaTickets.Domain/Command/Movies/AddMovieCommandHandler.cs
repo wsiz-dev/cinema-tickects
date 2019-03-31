@@ -14,6 +14,12 @@ namespace CinemaTickets.Domain.Command.Movies
 
         public Result Handle(AddMovieCommand command)
         {
+            var validationResult = new AddMovieCommandValidator().Validate(command);
+            if (validationResult.IsValid == false)
+            {
+                return Result.Fail(validationResult);
+            }
+
             var isExist = _unitOfWork.MoviesRepository.IsMovieExist(command.Name, command.Year);
 
             if (isExist)

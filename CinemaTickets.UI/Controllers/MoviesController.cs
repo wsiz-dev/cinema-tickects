@@ -2,7 +2,6 @@
 using CinemaTickets.Domain;
 using CinemaTickets.Domain.Command.Movies;
 using CinemaTickets.Domain.Query.Movies;
-using CinemaTickets.UI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaTickets.UI.Controllers
@@ -29,29 +28,22 @@ namespace CinemaTickets.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddMovieModel model)
+        public IActionResult Add(AddMovieCommand command)
         {
-            var validationResult = model.Validate();
-            if (validationResult.IsValid == false)
+            var result = _mediator.Command(command);
+            if (result.IsFailure)
             {
-                ModelState.PopulateValidation(validationResult);
-                return View(model);
+                ModelState.PopulateValidation(result.Errors);
+                return View(command);
             }
 
-            var result = _mediator.Command(new AddMovieCommand(model.Name, model.Year, model.SeanceTime));
-            if (result.IsSuccess)
-            {
-                return RedirectToAction("Index");
-            }
-
-            ViewData["Error"] = result.Message;
-            return View(model);
+            return RedirectToAction("Index");
         }
 
         public IActionResult Edit(Guid id)
         {
             var movie = _mediator.Query(new GetMovieQuery(id));
-            var model = new EditMovieModel
+            var model = new EditMovieCommand
             {
                 Id = movie.Id,
                 Name = movie.Name,
@@ -63,23 +55,16 @@ namespace CinemaTickets.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EditMovieModel model)
+        public IActionResult Edit(EditMovieCommand command)
         {
-            var validationResult = model.Validate();
-            if (validationResult.IsValid == false)
+            var result = _mediator.Command(command);
+            if (result.IsFailure)
             {
-                ModelState.PopulateValidation(validationResult);
-                return View(model);
+                ModelState.PopulateValidation(result.Errors);
+                return View(command);
             }
 
-            var result = _mediator.Command(new EditMovieCommand(model.Id, model.Name, model.Year, model.SeanceTime));
-            if (result.IsSuccess)
-            {
-                return RedirectToAction("Index");
-            }
-
-            ViewData["Error"] = result.Message;
-            return View(model);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

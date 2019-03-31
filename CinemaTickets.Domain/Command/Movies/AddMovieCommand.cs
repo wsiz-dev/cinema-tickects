@@ -2,15 +2,8 @@
 {
     public sealed class AddMovieCommand : ICommand
     {
-        public AddMovieCommand(string name, int year, int seanceTime)
-        {
-            Name = name;
-            Year = year;
-            SeanceTime = seanceTime;
-        }
-
-        public string Name { get; }
-        public int Year { get; }
-        public int SeanceTime { get; }
+        public string Name { get; set; }
+        public int Year { get; set; }
+        public int SeanceTime { get; set; }
     }
 }

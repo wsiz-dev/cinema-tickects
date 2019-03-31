@@ -1,17 +1,9 @@
-﻿@model AddMovieModel
+﻿@model CinemaTickets.Domain.Command.Movies.AddMovieCommand
 @{
     ViewData["Title"] = "Add";
-    string error = ViewData["Error"]?.ToString() ?? "";
 }
 
 <h2>Dodaj nowy film</h2>
-
-@if (error != "")
-{
-    <div class="text-danger">
-        @error
-    </div>
-}
 
 <form method="post">
     <div class="form-group">

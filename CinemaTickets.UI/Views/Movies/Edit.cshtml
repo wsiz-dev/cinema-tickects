@@ -1,17 +1,9 @@
-﻿@model EditMovieModel
+﻿@model CinemaTickets.Domain.Command.Movies.EditMovieCommand
 @{
     ViewData["Title"] = "Edit";
-    string error = ViewData["Error"]?.ToString() ?? "";
 }
 
 <h2>Edytuj film</h2>
-
-@if (error != "")
-{
-    <div class="text-danger">
-        @error
-    </div>
-}
 
 <form method="post">
     @Html.HiddenFor(x => x.Id)

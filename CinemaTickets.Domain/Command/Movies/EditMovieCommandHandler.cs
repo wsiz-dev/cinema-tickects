@@ -15,6 +15,12 @@ namespace CinemaTickets.Domain.Command.Movies
 
         public Result Handle(EditMovieCommand command)
         {
+            var validationResult = new EditMovieCommandValidator().Validate(command);
+            if (validationResult.IsValid == false)
+            {
+                return Result.Fail(validationResult);
+            }
+
             var movie = _unitOfWork.MoviesRepository.GetById(new Id<Movie>(command.Id));
             if (movie == null)
             {

@@ -32,6 +32,9 @@ namespace CinemaTickets.Infrastructure
                     .HasConversion(
                         v => v.Value,
                         v => new Id<Movie>(v));
+                m.HasMany(x => x.Seances)
+                    .WithOne()
+                    .HasForeignKey(x => x.MovieId);
             });
 
             modelBuilder.Entity<Seance>(m =>
@@ -45,6 +48,9 @@ namespace CinemaTickets.Infrastructure
                     .HasConversion(
                         v => v.Value,
                         v => new Id<Movie>(v));
+                m.HasMany(x => x.Tickets)
+                    .WithOne()
+                    .HasForeignKey(x => x.SeanceId);
             });
 
             modelBuilder.Entity<Ticket>(m =>
@@ -54,6 +60,10 @@ namespace CinemaTickets.Infrastructure
                     .HasConversion(
                         v => v.Value,
                         v => new Id<Ticket>(v));
+                m.Property(e => e.SeanceId)
+                    .HasConversion(
+                        v => v.Value,
+                        v => new Id<Seance>(v));
             });
 
             var firstMovie = new Movie("Harry Potter i Czara Ognia", 2010, 150);

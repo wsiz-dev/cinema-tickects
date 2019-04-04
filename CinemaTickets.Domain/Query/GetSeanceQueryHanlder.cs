@@ -1,10 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using CinemaTickets.Domain.Query.DTO;
 using CinemaTickets.Domain.Repositories;
 
 namespace CinemaTickets.Domain.Query
 {
-    public class GetSeanceQueryHanlder : IQueryHandler<GetSeanceQuery, MovieSeanceDetailsDTO>
+    public class GetSeanceQueryHanlder : IQueryHandler<GetSeanceQuery, MovieSeanceDetails>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -13,28 +14,21 @@ namespace CinemaTickets.Domain.Query
             _unitOfWork = unitOfWork;
         }
 
-        public MovieSeanceDetailsDTO Handle(GetSeanceQuery query)
+        public MovieSeanceDetails Handle(GetSeanceQuery query)
         {
             var movie = _unitOfWork.MoviesRepository.GetSeanceDetails(query.MovieId);
             if (movie == null)
-                return null;
+            {
+                throw new NullReferenceException("Given movie does not exist.");
+            }
 
-            var seances = movie.Seances.Where(c => c.Id == query.SeanceId).ToList();
-            movie.SetCurrentSeance(seances);
+            var seance = movie.Seances.SingleOrDefault(x => x.Id == query.SeanceId);
+            if (seance == null)
+            {
+                throw new NullReferenceException("Given seance does not exist.");
+            }
 
-            var seance = new SeanceDetailsDTO();
-
-            if (movie.Seances == null)
-                return new MovieSeanceDetailsDTO(movie.Name, movie.Id, seance);
-
-            seance = movie.Seances.Select(
-                    item => new SeanceDetailsDTO(
-                        item.Date, item.Id, 
-                        item.Tickets.Select(
-                            x => x.PeopleCount).ToList()))
-                .FirstOrDefault();
-
-            return new MovieSeanceDetailsDTO(movie.Name, movie.Id, seance);
+            return new MovieSeanceDetails(movie, seance);
         }
     }
 }

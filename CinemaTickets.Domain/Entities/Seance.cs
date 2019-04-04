@@ -16,7 +16,6 @@ namespace CinemaTickets.Domain.Entities
             Id = new Id<Seance>(Guid.NewGuid());
             Date = date;
             MovieId = movieId;
-            Tickets = new List<Ticket>();
         }
 
         public DateTime Date { get; protected set; }
@@ -25,7 +24,7 @@ namespace CinemaTickets.Domain.Entities
 
         public Id<Movie> MovieId { get; protected set; }
 
-        public List<Ticket> Tickets { get; protected set; }
+        public virtual ICollection<Ticket> Tickets { get; protected set; }
 
         public List<Ticket> GetTicketByEmail(string email)
         {

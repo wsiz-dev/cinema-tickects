@@ -5,7 +5,7 @@ using CinemaTickets.Domain.ValueObjects;
 
 namespace CinemaTickets.Domain.Query
 {
-    public class GetSeanceQuery : IQuery<MovieSeanceDetailsDTO>
+    public class GetSeanceQuery : IQuery<MovieSeanceDetails>
     {
         public GetSeanceQuery(Guid movieId, Guid seanceId)
         {

@@ -51,13 +51,6 @@ namespace CinemaTickets.Infrastructure.Repositories
             _context.Remove(movie);
         }
 
-        public int GetMovieTimeById(Id<Movie> movieId)
-        {
-            return _context.Movies.Where(x => x.Id == movieId)
-                .Select(x => x.SeanceTime)
-                .FirstOrDefault();
-        }
-
         public void Update(Movie movie)
         {
             _context.Movies.Update(movie);
@@ -67,7 +60,6 @@ namespace CinemaTickets.Infrastructure.Repositories
         {
             return _context.Movies.Where(x => x.Id == movieId)
                 .Include(t => t.Seances)
-                .ThenInclude(se => se.Tickets)
                 .FirstOrDefault();
         }
 

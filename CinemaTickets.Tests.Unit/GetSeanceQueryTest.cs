@@ -1,4 +1,5 @@
-﻿using CinemaTickets.Domain.Query;
+﻿using System.Linq;
+using CinemaTickets.Domain.Query;
 using CinemaTickets.Domain.Repositories;
 using FluentAssertions;
 using NSubstitute;
@@ -19,11 +20,11 @@ namespace CinemaTickets.Tests.Unit
                 unitOfWorkSubstitute.MoviesRepository.GetSeanceDetails(movie.Id)
                     .Returns(movie);
 
-                var query = new GetSeanceQuery(movie.Id.Value, movie.Seances[0].Id.Value);
+                var query = new GetSeanceQuery(movie.Id.Value, movie.Seances.First().Id.Value);
                 var queryHandler = new GetSeanceQueryHanlder(unitOfWorkSubstitute);
                 var seanceQuery = queryHandler.Handle(query);
 
-                seanceQuery.Name.Should().Be("Harry Potter");
+                seanceQuery.MovieName.Should().Be("Harry Potter");
             }
         }
     }

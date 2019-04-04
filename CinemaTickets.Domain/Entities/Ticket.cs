@@ -24,5 +24,7 @@ namespace CinemaTickets.Domain.Entities
         public int PeopleCount { get; protected set; }
 
         public DateTime PurchesDate { get; protected set; }
+
+        public Id<Seance> SeanceId { get; protected set; }
     }
 }

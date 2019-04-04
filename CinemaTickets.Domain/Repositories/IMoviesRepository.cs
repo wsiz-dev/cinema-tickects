@@ -15,8 +15,6 @@ namespace CinemaTickets.Domain.Repositories
 
         bool IsSeanceExist(DateTime seanceDate);
 
-        int GetMovieTimeById(Id<Movie> movieId);
-
         void Add(Movie movie);
 
         void Update(Movie movie);

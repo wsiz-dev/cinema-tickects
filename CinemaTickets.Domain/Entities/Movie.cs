@@ -17,7 +17,6 @@ namespace CinemaTickets.Domain.Entities
             Name = name;
             Year = year;
             SeanceTime = seanceTime;
-            Seances = new List<Seance>();
         }
 
         public Id<Movie> Id { get; protected set; }
@@ -28,7 +27,7 @@ namespace CinemaTickets.Domain.Entities
 
         public int SeanceTime { get; protected set; }
 
-        public List<Seance> Seances { get; private set; }
+        public virtual ICollection<Seance> Seances { get; protected set; }
 
         public Seance GetSeanceByDateAdnRoomId(DateTime date)
         {
@@ -48,11 +47,6 @@ namespace CinemaTickets.Domain.Entities
         public void SetSeanceTime(int seanceTime)
         {
             SeanceTime = seanceTime;
-        }
-
-        public void SetCurrentSeance(List<Seance> seances)
-        {
-            Seances = seances;
         }
     }
 }

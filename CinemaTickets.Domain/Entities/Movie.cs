@@ -30,9 +30,9 @@ namespace CinemaTickets.Domain.Entities
 
         public List<Seance> Seances { get; private set; }
 
-        public Seance GetSeanceByDateAdnRoomId(DateTime date, Id<Room> roomId)
+        public Seance GetSeanceByDateAdnRoomId(DateTime date)
         {
-            return Seances.SingleOrDefault(x => x.Date == date && x.RoomId == roomId);
+            return Seances.SingleOrDefault(x => x.Date == date);
         }
 
         public void SetName(string name)

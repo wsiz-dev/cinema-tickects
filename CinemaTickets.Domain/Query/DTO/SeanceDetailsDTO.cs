@@ -11,19 +11,16 @@ namespace CinemaTickets.Domain.Query.DTO
         {
         }
 
-        public SeanceDetailsDTO(DateTime date, Id<Seance> id, Id<Room> roomId, List<int> peopleCount)
+        public SeanceDetailsDTO(DateTime date, Id<Seance> id, List<int> peopleCount)
         {
             Date = date;
             Id = id;
-            RoomId = roomId;
             PeopleCount = peopleCount;
         }
 
         public DateTime? Date { get; }
 
         public Id<Seance> Id { get; }
-
-        public Id<Room> RoomId { get; }
 
         public List<int> PeopleCount { get; }
     }

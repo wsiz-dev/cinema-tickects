@@ -61,11 +61,9 @@ namespace CinemaTickets.UI
             containerBuilder.Populate(services);
 
             containerBuilder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
-            containerBuilder.RegisterType<RoomService>().As<IRoomService>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<EmailSender>().As<IEmailSender>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<EmailService>().As<IEmailService>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<MoviesRepository>().As<IMoviesRepository>().InstancePerLifetimeScope();
-            containerBuilder.RegisterType<RoomRepository>().As<IRoomRepository>().InstancePerLifetimeScope();
             containerBuilder.ConfigureMediator();
 
             Container = containerBuilder.Build();

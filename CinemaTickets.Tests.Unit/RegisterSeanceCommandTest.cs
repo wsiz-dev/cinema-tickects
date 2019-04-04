@@ -1,8 +1,6 @@
 ﻿using System;
 using CinemaTickets.Domain.Command.Seances;
-using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Repositories;
-using CinemaTickets.Domain.Service;
 using FluentAssertions;
 using NSubstitute;
 using Xunit;
@@ -24,23 +22,15 @@ namespace CinemaTickets.Tests.Unit
                     .Returns(movie);
                 unitOfWorkSubstitute.MoviesRepository.GetSeancesByMovieId(movie.Id)
                     .Returns(movie.Seances);
-                unitOfWorkSubstitute.MoviesRepository.IsSeanceExist(seanceDate, sut.Rooms[1].Id)
+                unitOfWorkSubstitute.MoviesRepository.IsSeanceExist(seanceDate)
                     .Returns(true);
-                var roomServiceSubstitute = Substitute.For<IRoomService>();
-
-                roomServiceSubstitute.GetTimeSpanAfterSeanceDate(sut.Rooms[1], seanceDate, movie.SeanceTime)
-                    .Returns(movie.SeanceTime);
-                roomServiceSubstitute.GetTimeSpanBeforeSeanceDate(sut.Rooms[1], seanceDate, movie.SeanceTime)
-                    .Returns(movie.SeanceTime);
-
 
                 var command = new RegisterSeanceCommand
                 {
-                    MovieId = movie.Id,
+                    MovieId = movie.Id.Value,
                     SeanceDate = seanceDate,
-                    RoomId = sut.Rooms[0].Id
                 };
-                var handler = new RegisterSeanceCommandHandler(unitOfWorkSubstitute, roomServiceSubstitute);
+                var handler = new RegisterSeanceCommandHandler(unitOfWorkSubstitute);
                 var result = handler.Handle(command);
 
                 result.IsSuccess.Should().BeFalse();
@@ -60,23 +50,13 @@ namespace CinemaTickets.Tests.Unit
                     .Returns(movie);
                 unitOfWorkSubstitute.MoviesRepository.GetSeancesByMovieId(movie.Id)
                     .Returns(movie.Seances);
-                unitOfWorkSubstitute.RoomRepository.GetById(sut.Rooms[0].Id)
-                    .Returns(sut.Rooms[0]);
-
-                var roomServiceSubstitute = Substitute.For<IRoomService>();
-
-                roomServiceSubstitute.GetTimeSpanAfterSeanceDate(sut.Rooms[0], seanceDate, movie.SeanceTime)
-                    .Returns(movie.SeanceTime);
-                roomServiceSubstitute.GetTimeSpanBeforeSeanceDate(sut.Rooms[0], seanceDate, movie.SeanceTime)
-                    .Returns(movie.SeanceTime);
 
                 var command = new RegisterSeanceCommand
                 {
-                    MovieId = movie.Id,
+                    MovieId = movie.Id.Value,
                     SeanceDate = seanceDate,
-                    RoomId = sut.Rooms[0].Id
                 };
-                var handler = new RegisterSeanceCommandHandler(unitOfWorkSubstitute, roomServiceSubstitute);
+                var handler = new RegisterSeanceCommandHandler(unitOfWorkSubstitute);
 
                 handler.Handle(command);
 
@@ -100,28 +80,13 @@ namespace CinemaTickets.Tests.Unit
                     .Returns(movie);
                 unitOfWorkSubstitute.MoviesRepository.GetSeancesByMovieId(movie.Id)
                     .Returns(movie.Seances);
-                unitOfWorkSubstitute.RoomRepository.GetById(sut.Rooms[0].Id)
-                    .Returns(sut.Rooms[0]);
-
-                var roomServiceSubstitute = Substitute.For<IRoomService>();
-
-                roomServiceSubstitute.GetTimeSpanAfterSeanceDate(sut.Rooms[0], seanceDate, movie.SeanceTime)
-                    .Returns(0);
-                roomServiceSubstitute.GetTimeSpanBeforeSeanceDate(sut.Rooms[0], seanceDate, movie.SeanceTime)
-                    .Returns(0);
-
-                var seance = new Seance(new DateTime(2019, 4, 1, 10, 0, 0), sut.Rooms[0].Id, movie.Id);
-                sut.Rooms[0].Seances.Add(seance);
-                seance = new Seance(new DateTime(2019, 4, 1, 12, 30, 0), sut.Rooms[0].Id, movie.Id);
-                sut.Rooms[0].Seances.Add(seance);
 
                 var command = new RegisterSeanceCommand
                 {
-                    MovieId = movie.Id,
+                    MovieId = movie.Id.Value,
                     SeanceDate = seanceDate,
-                    RoomId = sut.Rooms[0].Id
                 };
-                var handler = new RegisterSeanceCommandHandler(unitOfWorkSubstitute, roomServiceSubstitute);
+                var handler = new RegisterSeanceCommandHandler(unitOfWorkSubstitute);
 
                 handler.Handle(command);
                 var result = handler.Handle(command);

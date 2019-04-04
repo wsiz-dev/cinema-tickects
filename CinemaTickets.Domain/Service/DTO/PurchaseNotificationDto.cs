@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.ValueObjects;
 
@@ -8,14 +6,13 @@ namespace CinemaTickets.Domain.Service.DTO
 {
     public class PurchaseNotificationDto
     {
-        public PurchaseNotificationDto(string email, Id<Ticket> id, int peopleCount, DateTime seanceDate, string movieName, int roomNumber)
+        public PurchaseNotificationDto(string email, Id<Ticket> id, int peopleCount, DateTime seanceDate, string movieName)
         {
             Email = email;
             Id = id;
             PeopleCount = peopleCount;
             SeanceDate = seanceDate;
             MovieName = movieName;
-            RoomNumber = roomNumber;
         }
 
         public string Email { get; }
@@ -27,8 +24,5 @@ namespace CinemaTickets.Domain.Service.DTO
         public DateTime SeanceDate { get; }
 
         public string MovieName { get; }
-
-        public int RoomNumber { get; }
-
     }
 }

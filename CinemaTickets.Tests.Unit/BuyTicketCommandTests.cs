@@ -28,20 +28,18 @@ namespace CinemaTickets.Tests.Unit
 
                 unitOfWorkSubstitute.MoviesRepository.GetById(movie.Id)
                     .Returns(movie);
-                unitOfWorkSubstitute.RoomRepository.GetById(sut.Rooms[0].Id)
-                    .Returns(sut.Rooms[0]);
 
                 movie = unitOfWorkSubstitute.MoviesRepository.GetById(movie.Id);
-                var seance = movie.GetSeanceByDateAdnRoomId(seanceDate, sut.Rooms[0].Id);
+                var seance = movie.GetSeanceByDateAdnRoomId(seanceDate);
 
                 seance.Add(new Ticket("dawid@wsiz-dev.pl", 17));
 
-                var command = new BuyTicketCommand(movie.Id, seanceDate, email, quantity, sut.Rooms[0].Id);
+                var command = new BuyTicketCommand(movie.Id, seanceDate, email, quantity);
                 var handler = new BuyTicketCommandHandler(unitOfWorkSubstitute, emailService);
 
                 handler.Handle(command);
 
-                var query = new GetSeatsInUseQuery(movie.Id, seanceDate, sut.Rooms[0].Id);
+                var query = new GetSeatsInUseQuery(movie.Id, seanceDate);
                 var queryHandler = new GetSeatsInUseQueryHandler(unitOfWorkSubstitute);
 
                 var seatsInUse = queryHandler.Handle(query);
@@ -65,15 +63,13 @@ namespace CinemaTickets.Tests.Unit
 
                 unitOfWorkSubstitute.MoviesRepository.GetById(movie.Id)
                     .Returns(movie);
-                unitOfWorkSubstitute.RoomRepository.GetById(sut.Rooms[2].Id)
-                    .Returns(sut.Rooms[2]);
 
-                var command = new BuyTicketCommand(movie.Id, seanceDate, email, quantity, sut.Rooms[2].Id);
+                var command = new BuyTicketCommand(movie.Id, seanceDate, email, quantity);
                 var handler = new BuyTicketCommandHandler(unitOfWorkSubstitute, emailService);
                 handler.Handle(command);
 
                 movie = unitOfWorkSubstitute.MoviesRepository.GetById(movie.Id);
-                var seance = movie.GetSeanceByDateAdnRoomId(seanceDate, sut.Rooms[2].Id);
+                var seance = movie.GetSeanceByDateAdnRoomId(seanceDate);
                 var ticket = seance.GetTicketByEmail(email);
 
                 ticket[0].PeopleCount.Should().Be(2);
@@ -95,10 +91,8 @@ namespace CinemaTickets.Tests.Unit
 
                 unitOfWorkSubstitute.MoviesRepository.GetById(movie.Id)
                     .Returns(movie);
-                unitOfWorkSubstitute.RoomRepository.GetById(sut.Rooms[1].Id)
-                    .Returns(sut.Rooms[1]);
 
-                var command = new BuyTicketCommand(movie.Id, seanceDate, email, quantity, sut.Rooms[1].Id);
+                var command = new BuyTicketCommand(movie.Id, seanceDate, email, quantity);
                 var handler = new BuyTicketCommandHandler(unitOfWorkSubstitute, emailService);
                 var result = handler.Handle(command);
 

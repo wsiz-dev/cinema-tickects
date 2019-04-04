@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Threading.Tasks;
 using CinemaTickets.Domain.Service;
 using CinemaTickets.Domain.Service.DTO;
 using MimeKit;
@@ -30,7 +29,6 @@ namespace CinemaTickets.Infrastructure.Service
                 purchaseNotification.Email,
                 purchaseNotification.MovieName,
                 purchaseNotification.PeopleCount,
-                purchaseNotification.RoomNumber,
                 purchaseNotification.SeanceDate,
                 purchaseNotification.Id.Value
             );

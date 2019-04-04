@@ -25,7 +25,7 @@ namespace CinemaTickets.Domain.Query.Movies
             if (movie.Seances != null)
                 seances = movie.Seances.Select(
                         item => new SeanceDTO(
-                            item.Date, item.Id, item.RoomId))
+                            item.Date, item.Id))
                                 .ToList();
 
             return  new MovieDetailsDTO(movie.Id.Value, movie.Name, movie.Year, movie.SeanceTime, seances);

@@ -13,7 +13,7 @@ namespace CinemaTickets.Domain.Repositories
 
         bool IsMovieExist(string name, int year);
 
-        bool IsSeanceExist(DateTime seanceDate, Id<Room> roomId);
+        bool IsSeanceExist(DateTime seanceDate);
 
         int GetMovieTimeById(Id<Movie> movieId);
 

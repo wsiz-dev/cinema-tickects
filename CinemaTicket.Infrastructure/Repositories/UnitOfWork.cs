@@ -10,11 +10,9 @@ namespace CinemaTickets.Infrastructure.Repositories
         {
             _context = context;
             MoviesRepository = new MoviesRepository(context);
-            RoomRepository = new RoomRepository(context);
         }
 
         public IMoviesRepository MoviesRepository { get; }
-        public IRoomRepository RoomRepository { get; }
 
         public void Commit()
         {

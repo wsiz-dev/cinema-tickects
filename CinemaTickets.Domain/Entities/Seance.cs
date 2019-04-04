@@ -11,21 +11,17 @@ namespace CinemaTickets.Domain.Entities
         {
         }
 
-        public Seance(DateTime date, Id<Room> roomId, Id<Movie> movieId)
+        public Seance(DateTime date, Id<Movie> movieId)
         {
             Id = new Id<Seance>(Guid.NewGuid());
             Date = date;
-            RoomId = roomId;
             MovieId = movieId;
             Tickets = new List<Ticket>();
         }
 
-
         public DateTime Date { get; protected set; }
 
         public Id<Seance> Id { get; protected set; }
-
-        public Id<Room> RoomId { get; protected set; }
 
         public Id<Movie> MovieId { get; protected set; }
 

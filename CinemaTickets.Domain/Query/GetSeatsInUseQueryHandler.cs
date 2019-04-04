@@ -3,7 +3,7 @@ using CinemaTickets.Domain.Repositories;
 
 namespace CinemaTickets.Domain.Query
 {
-    public sealed class GetSeatsInUseQueryHandler : IQueryHandler<GetSeatsInUseQuery, int>
+    internal class GetSeatsInUseQueryHandler : IQueryHandler<GetSeatsInUseQuery, int>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -15,7 +15,7 @@ namespace CinemaTickets.Domain.Query
         public int Handle(GetSeatsInUseQuery query)
         {
             var movie = _unitOfWork.MoviesRepository.GetById(query.MovieId);
-            var seance = movie.GetSeanceByDateAdnRoomId(query.SeanceDate, query.RoomId);
+            var seance = movie.GetSeanceByDateAdnRoomId(query.SeanceDate);
             var purchasedTickets = seance.GetAllSeanceTicket();
 
             return purchasedTickets.Sum(x => x.PeopleCount);

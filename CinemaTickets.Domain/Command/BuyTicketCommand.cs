@@ -6,12 +6,11 @@ namespace CinemaTickets.Domain.Command
 {
     public sealed class BuyTicketCommand : ICommand
     {
-        public BuyTicketCommand(Id<Movie> movieId, DateTime seanceDate, string email, int quantity, Id<Room> roomId)
+        public BuyTicketCommand(Id<Movie> movieId, DateTime seanceDate, string email, int quantity)
         {
             SeanceDate = seanceDate;
             Email = email;
             Quantity = quantity;
-            RoomId = roomId;
             MovieId = movieId;
         }
 
@@ -22,7 +21,5 @@ namespace CinemaTickets.Domain.Command
         public string Email { get; }
 
         public int Quantity { get; }
-
-        public Id<Room> RoomId { get; }
     }
 }

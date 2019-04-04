@@ -29,7 +29,7 @@ namespace CinemaTickets.Domain.Query
 
             seance = movie.Seances.Select(
                     item => new SeanceDetailsDTO(
-                        item.Date, item.Id, item.RoomId, 
+                        item.Date, item.Id, 
                         item.Tickets.Select(
                             x => x.PeopleCount).ToList()))
                 .FirstOrDefault();

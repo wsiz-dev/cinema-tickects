@@ -35,10 +35,9 @@ namespace CinemaTickets.Infrastructure.Repositories
                 x => x.Name == name && x.Year == year);
         }
 
-        public bool IsSeanceExist(DateTime seanceDate, Id<Room> roomId)
+        public bool IsSeanceExist(DateTime seanceDate)
         {
-            return _context.Seances.Any(
-                x => x.Date == seanceDate && x.RoomId == roomId);
+            return _context.Seances.Any(x => x.Date == seanceDate);
         }
 
         public List<Seance> GetSeancesByMovieId(Id<Movie> movieId)

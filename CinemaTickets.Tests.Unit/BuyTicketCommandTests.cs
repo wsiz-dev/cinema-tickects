@@ -1,5 +1,6 @@
 using System;
 using CinemaTickets.Domain.Command;
+using CinemaTickets.Domain.Command.Tickets;
 using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Query;
 using CinemaTickets.Domain.Repositories;

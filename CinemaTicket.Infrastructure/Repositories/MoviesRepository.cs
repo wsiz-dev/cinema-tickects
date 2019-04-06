@@ -21,6 +21,7 @@ namespace CinemaTickets.Infrastructure.Repositories
         {
             return _context.Movies
                 .Include(c => c.Seances)
+                .ThenInclude(c => c.Tickets)
                 .SingleOrDefault(x => x.Id == id);
         }
 

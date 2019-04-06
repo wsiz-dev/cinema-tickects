@@ -2,7 +2,7 @@
 using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.ValueObjects;
 
-namespace CinemaTickets.Domain.Command
+namespace CinemaTickets.Domain.Command.Tickets
 {
     public sealed class BuyTicketCommand : ICommand
     {

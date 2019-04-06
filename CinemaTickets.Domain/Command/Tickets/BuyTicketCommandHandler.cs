@@ -4,7 +4,7 @@ using CinemaTickets.Domain.Service;
 using CinemaTickets.Domain.Service.DTO;
 using Hangfire;
 
-namespace CinemaTickets.Domain.Command
+namespace CinemaTickets.Domain.Command.Tickets
 {
     internal class BuyTicketCommandHandler : ICommandHandler<BuyTicketCommand>
     {
@@ -20,6 +20,12 @@ namespace CinemaTickets.Domain.Command
 
         public Result Handle(BuyTicketCommand command)
         {
+            var validationResult = new BuyTicketCommandValidator().Validate(command);
+            if (validationResult.IsValid == false)
+            {
+                return Result.Fail(validationResult);
+            }
+
             var ticket = new Ticket(command.Email, command.Quantity);
             var movie = _unitOfWork.MoviesRepository.GetById(command.MovieId);
             var seance = movie.GetSeanceByDateAdnRoomId(command.SeanceDate);

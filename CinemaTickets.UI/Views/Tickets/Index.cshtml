@@ -1,7 +1,23 @@
-﻿
+﻿@model BuyTicketViewModel
 @{
-    ViewData["Title"] = "BuTicket";
+    ViewData["Title"] = "BuyTicket";
 }
 
-<h2>BuyTicket</h2>
+<h2>Zakup biletu</h2>
 
+<form method="post">
+    @Html.HiddenFor(x => x.MovieId)
+    @Html.HiddenFor(x => x.SeanceId)
+    @Html.HiddenFor(x => x.SeanceDate)
+    <div class="form-group">
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" type="text" class="form-control">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Quantity">Ilość</label>
+        <input asp-for="Quantity" type="number" class="form-control">
+        <span asp-validation-for="Quantity"></span>
+    </div>
+    <button type="submit" class="btn btn-outline-primary float-right">Kup</button>
+</form>

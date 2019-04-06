@@ -1,6 +1,7 @@
 ﻿using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using CinemaTickets.Domain;
 using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Repositories;
 using CinemaTickets.Domain.Service;
@@ -64,6 +65,7 @@ namespace CinemaTickets.UI
             containerBuilder.RegisterType<EmailSender>().As<IEmailSender>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<EmailService>().As<IEmailService>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<MoviesRepository>().As<IMoviesRepository>().InstancePerLifetimeScope();
+            containerBuilder.RegisterType<HangfireBackgroundJob>().As<IBackgroundJob>().InstancePerLifetimeScope();
             containerBuilder.ConfigureMediator();
 
             Container = containerBuilder.Build();

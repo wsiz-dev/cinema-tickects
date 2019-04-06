@@ -1,5 +1,5 @@
 using System;
-using CinemaTickets.Domain.Command;
+using CinemaTickets.Domain;
 using CinemaTickets.Domain.Command.Tickets;
 using CinemaTickets.Domain.Entities;
 using CinemaTickets.Domain.Query;
@@ -13,7 +13,6 @@ namespace CinemaTickets.Tests.Unit
 {
     public class BuyTicketCommandTests
     {
-
         [Fact]
         public void BuyTicket_CountingSeatsInUse_ShouldSuccess()
         {
@@ -26,6 +25,7 @@ namespace CinemaTickets.Tests.Unit
                 var movie = sut.CreateMovie("Harry Potter", 2001, 150);
                 var unitOfWorkSubstitute = Substitute.For<IUnitOfWork>();
                 var emailService = Substitute.For<IEmailService>();
+                var backgroundJob = Substitute.For<IBackgroundJob>();
 
                 unitOfWorkSubstitute.MoviesRepository.GetById(movie.Id)
                     .Returns(movie);
@@ -36,7 +36,7 @@ namespace CinemaTickets.Tests.Unit
                 seance.Add(new Ticket("dawid@wsiz-dev.pl", 17));
 
                 var command = new BuyTicketCommand(movie.Id, seanceDate, email, quantity);
-                var handler = new BuyTicketCommandHandler(unitOfWorkSubstitute, emailService);
+                var handler = new BuyTicketCommandHandler(unitOfWorkSubstitute, emailService, backgroundJob);
 
                 handler.Handle(command);
 
@@ -61,12 +61,13 @@ namespace CinemaTickets.Tests.Unit
                 var movie = sut.CreateMovie("Harry Potter", 2001, 150);
                 var unitOfWorkSubstitute = Substitute.For<IUnitOfWork>();
                 var emailService = Substitute.For<IEmailService>();
+                var backgroundJob = Substitute.For<IBackgroundJob>();
 
                 unitOfWorkSubstitute.MoviesRepository.GetById(movie.Id)
                     .Returns(movie);
 
                 var command = new BuyTicketCommand(movie.Id, seanceDate, email, quantity);
-                var handler = new BuyTicketCommandHandler(unitOfWorkSubstitute, emailService);
+                var handler = new BuyTicketCommandHandler(unitOfWorkSubstitute, emailService, backgroundJob);
                 handler.Handle(command);
 
                 movie = unitOfWorkSubstitute.MoviesRepository.GetById(movie.Id);
@@ -74,30 +75,6 @@ namespace CinemaTickets.Tests.Unit
                 var ticket = seance.GetTicketByEmail(email);
 
                 ticket[0].PeopleCount.Should().Be(2);
-            }
-        }
-
-        [Fact]
-        public void BuyTicket_WhenThereAreNoSeats_ShouldFail()
-        {
-            var seanceDate = new DateTime(2019, 3, 1, 14, 0, 0);
-            const string email = "janusz@wsiz-dev.pl";
-            const int quantity = 222;
-
-            using (var sut = new SystemUnderTest())
-            {
-                var movie = sut.CreateMovie("Harry Potter", 2001, 150);
-                var unitOfWorkSubstitute = Substitute.For<IUnitOfWork>();
-                var emailService = Substitute.For<IEmailService>();
-
-                unitOfWorkSubstitute.MoviesRepository.GetById(movie.Id)
-                    .Returns(movie);
-
-                var command = new BuyTicketCommand(movie.Id, seanceDate, email, quantity);
-                var handler = new BuyTicketCommandHandler(unitOfWorkSubstitute, emailService);
-                var result = handler.Handle(command);
-
-                result.IsFailure.Should().BeTrue();
             }
         }
     }

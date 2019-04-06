@@ -2,20 +2,20 @@
 using CinemaTickets.Domain.Repositories;
 using CinemaTickets.Domain.Service;
 using CinemaTickets.Domain.Service.DTO;
-using Hangfire;
 
 namespace CinemaTickets.Domain.Command.Tickets
 {
     internal class BuyTicketCommandHandler : ICommandHandler<BuyTicketCommand>
     {
         private readonly IUnitOfWork _unitOfWork;
-
         private readonly IEmailService _emailService;
+        private readonly IBackgroundJob _backgroundJob;
 
-        public BuyTicketCommandHandler(IUnitOfWork unitOfWork, IEmailService emailService)
+        public BuyTicketCommandHandler(IUnitOfWork unitOfWork, IEmailService emailService, IBackgroundJob backgroundJob)
         {
             _unitOfWork = unitOfWork;
             _emailService = emailService;
+            _backgroundJob = backgroundJob;
         }
 
         public Result Handle(BuyTicketCommand command)
@@ -35,7 +35,7 @@ namespace CinemaTickets.Domain.Command.Tickets
 
             var purchaseNotification = new PurchaseNotificationDto(command.Email, ticket.Id, command.Quantity, seance.Date, movie.Name);
 
-            BackgroundJob.Enqueue(
+            _backgroundJob.Enqueue(
                 () => _emailService.SendPurchaseNotification(purchaseNotification));
             
             return Result.Ok();

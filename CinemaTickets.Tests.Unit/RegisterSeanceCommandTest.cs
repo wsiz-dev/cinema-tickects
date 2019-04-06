@@ -42,7 +42,7 @@ namespace CinemaTickets.Tests.Unit
         {
             using (var sut = new SystemUnderTest())
             {
-                var seanceDate = new DateTime(2019, 4, 1, 11, 0, 0);
+                var seanceDate = DateTime.UtcNow.AddDays(7);
                 var movie = sut.CreateMovie("Harry Potter", 2001, 150);
                 var unitOfWorkSubstitute = Substitute.For<IUnitOfWork>();
 
@@ -58,12 +58,9 @@ namespace CinemaTickets.Tests.Unit
                 };
                 var handler = new RegisterSeanceCommandHandler(unitOfWorkSubstitute);
 
-                handler.Handle(command);
+                var result = handler.Handle(command);
 
-                movie = unitOfWorkSubstitute.MoviesRepository.GetById(movie.Id);
-                var seances = unitOfWorkSubstitute.MoviesRepository.GetSeancesByMovieId(movie.Id);
-
-                seances.Count.Should().Be(4);
+                result.IsSuccess.Should().BeTrue();
             }
         }
 

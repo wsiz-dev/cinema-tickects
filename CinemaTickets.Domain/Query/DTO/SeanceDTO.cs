@@ -1,23 +1,17 @@
 ﻿using System;
-using CinemaTickets.Domain.Entities;
-using CinemaTickets.Domain.ValueObjects;
 
 namespace CinemaTickets.Domain.Query.DTO
 {
     public class SeanceDTO
     {
-        public SeanceDTO()
-        {
-        }
-
-        public SeanceDTO(DateTime date, Id<Seance> id)
+        public SeanceDTO(Guid id, DateTime date)
         {
             Date = date;
             Id = id;
         }
 
-        public DateTime? Date { get; }
+        public Guid Id { get; }
 
-        public Id<Seance> Id { get; }
+        public DateTime? Date { get; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CinemaTickets.Domain.Query.DTO;
 using CinemaTickets.Domain.Repositories;
@@ -18,17 +19,20 @@ namespace CinemaTickets.Domain.Query.Movies
         {
             var movie = _unitOfWork.MoviesRepository.GetById(query.MovieId);
             if (movie == null)
-                return null;
+            {
+                throw new NullReferenceException("Given movie does not exist.");
+            }
 
             var seances = new List<SeanceDTO>();
 
             if (movie.Seances != null)
-                seances = movie.Seances.Select(
-                        item => new SeanceDTO(
-                            item.Date, item.Id))
-                                .ToList();
+            {
+                seances = movie.Seances
+                    .Select(item => new SeanceDTO(item.Id.Value, item.Date))
+                    .ToList();
+            }
 
-            return  new MovieDetailsDTO(movie.Id.Value, movie.Name, movie.Year, movie.SeanceTime, seances);
+            return new MovieDetailsDTO(movie.Id.Value, movie.Name, movie.Year, movie.SeanceTime, seances);
         }
     }
 }
